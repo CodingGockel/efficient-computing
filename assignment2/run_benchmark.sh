@@ -1,13 +1,12 @@
 #!/bin/bash
 
-# Defaults
 OUTPUT="results.csv"
 SOURCE=""
 BINARY="./benchmark_tmp"
 START_N=1000
 STEP=1000
 ARG_COUNT=1
-OPT_FLAG="O0"  # default: no optimization
+OPT_FLAG="O0" 
 
 usage() {
     echo "Usage: $0 [-o output.csv] [-c source.c] [-O O0|O1|O2|O3] [-s start_n] [-t step] [-a 1|2|3]"
@@ -29,7 +28,6 @@ while getopts "o:c:O:s:t:a:" opt; do
     esac
 done
 
-# Validate source file
 if [ -z "$SOURCE" ]; then
     echo "Error: No source file specified. Use -c source.c"
     usage
@@ -40,13 +38,11 @@ if [ ! -f "$SOURCE" ]; then
     exit 1
 fi
 
-# Validate -a flag
 if [[ "$ARG_COUNT" != "1" && "$ARG_COUNT" != "2" && "$ARG_COUNT" != "3" ]]; then
     echo "Error: -a must be 1, 2 or 3."
     usage
 fi
 
-# Compile with given optimization flag
 echo "Compiling $SOURCE with -$OPT_FLAG ..."
 gcc "-$OPT_FLAG" "$SOURCE" -o "$BINARY" -lm
 if [ $? -ne 0 ]; then
@@ -55,7 +51,6 @@ if [ $? -ne 0 ]; then
 fi
 echo "Compilation successful -> $BINARY"
 
-# Build CSV header based on arg count
 if [ "$ARG_COUNT" -eq 1 ]; then
     echo "n,time_spent" > "$OUTPUT"
 elif [ "$ARG_COUNT" -eq 2 ]; then
@@ -110,6 +105,5 @@ while true; do
     n=$((n + STEP))
 done
 
-# Cleanup tmp binary
 rm -f "$BINARY"
 echo "Done. Results saved to $OUTPUT"
