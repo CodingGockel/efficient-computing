@@ -7,45 +7,33 @@
 extern double randInRange(double min, double max);
 
 int main(int argc, char *argv[]) {
-  if (argc < 3) {
-    printf("Usage: %s <n> <m>\n", argv[0]);
+  if (argc < 2) {
+    printf("Usage: %s <n>\n", argv[0]);
     return 1;
   }
   int n = atoi(argv[1]);
-  int m = atoi(argv[2]);
- 
+
   double x[n];
-  double y[m];
-  double a[m][n];
+  double y[n];
+  double a = randInRange(DBL_MIN, DBL_MAX);
 
   for(int i = 0; i < n; i++)
   {
     x[i] = randInRange(DBL_MIN, DBL_MAX);
-  }
-
-  for(int i = 0; i < m; i++)
-  {
-    for(int j = 0; j < n; j++)
-    {
-        a[i][j] = randInRange(DBL_MIN, DBL_MAX);
-    }
+    y[i] = randInRange(DBL_MIN, DBL_MAX);
   }
 
   struct timespec start, end;
   clock_gettime(CLOCK_MONOTONIC, &start);
-  // HERE GOES THE KERNEL
 
-  for(int i = 0; i < m; i++)
+  for(int i = 0; i< n; i++)
   {
-    for(int j = 0; j < n; j++)
-    {
-        y[i] += a[i][j] * x[j]; 
-    }
+    y[i] = (a * x[i]) + y[i];
   }
 
   clock_gettime(CLOCK_MONOTONIC, &end);
   double time_spent = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
-  printf("\n time spend: %f\n for n: %d", time_spent, n);
+  printf("%f", time_spent);
   return 0;
 }
 
