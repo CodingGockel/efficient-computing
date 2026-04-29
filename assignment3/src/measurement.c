@@ -7,7 +7,7 @@
 extern int dependent(int n);
 extern int independent(int n);
 
-volatile int a = 0, b = 0, c = 0, d = 0, e = 0, f = 0, x = 0, y = 0, z = 0;
+volatile int a = 0, b = 0, c = 0, d = 0, e = 0, f = 0, x = 0, y = 0, z = 0, k = 0;
 
 int main(int argc, char *argv[]) 
 {
@@ -69,12 +69,14 @@ int main(int argc, char *argv[])
     clock_gettime(CLOCK_MONOTONIC, &end);
     double time_spent_independent = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
     printf("%f \n", time_spent_independent);
+
+    printf("%f \n", time_spent_dependent/time_spent_independent);
     return 0;
 }
 
 int dependent(int n)
 {
-    int result = 0;
+    volatile int result = 0;
 
     for(int i = 0; i < n; i++)
     {
@@ -90,14 +92,14 @@ int dependent(int n)
 
 int independent(int n)
 {
-    int result = 0;
+    volatile int result = 0;
 
     for(int i = 0; i < n; i++)
     {
         x = a + b;
         y = c + d;
         z = e + f;
-        result += result;
+        result += k;
     }
 
     return result;
