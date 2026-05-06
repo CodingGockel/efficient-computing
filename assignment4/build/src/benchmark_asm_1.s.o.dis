@@ -1,0 +1,30 @@
+
+./build/./src/benchmark_asm_1.s.o:     file format elf64-littleaarch64
+
+SYMBOL TABLE:
+0000000000000000 l    d  .text	0000000000000000 .text
+0000000000000000 l    d  .data	0000000000000000 .data
+0000000000000000 l    d  .bss	0000000000000000 .bss
+000000000000000c l       .text	0000000000000000 while
+000000000000001c l       .text	0000000000000000 finish
+0000000000000000 g     F .text	0000000000000020 benchmark_asm_1
+
+
+
+Disassembly of section .text:
+
+0000000000000000 <benchmark_asm_1>:
+   0:	58000104 	ldr	x4, 20 <finish+0x4>
+   4:	4c407822 	ld1	{v2.4s}, [x1]
+   8:	4c407801 	ld1	{v1.4s}, [x0]
+
+000000000000000c <while>:
+   c:	eb1f009f 	cmp	x4, xzr
+  10:	54000060 	b.eq	1c <finish>  // b.none
+  14:	d1001084 	sub	x4, x4, #0x4
+  18:	17fffffd 	b	c <while>
+
+000000000000001c <finish>:
+  1c:	d65f03c0 	ret
+  20:	540be400 	.word	0x540be400
+  24:	00000002 	.word	0x00000002

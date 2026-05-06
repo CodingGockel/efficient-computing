@@ -1,0 +1,100 @@
+
+./build/./src/benchmark_c.c.o:     file format elf64-littleaarch64
+
+SYMBOL TABLE:
+0000000000000000 l    df *ABS*	0000000000000000 benchmark_c.c
+0000000000000000 l    d  .text	0000000000000000 .text
+0000000000000000 l    d  .data	0000000000000000 .data
+0000000000000000 l    d  .bss	0000000000000000 .bss
+0000000000000000 l    d  .debug_info	0000000000000000 .debug_info
+0000000000000000 l    d  .debug_abbrev	0000000000000000 .debug_abbrev
+0000000000000000 l    d  .debug_aranges	0000000000000000 .debug_aranges
+0000000000000000 l    d  .debug_line	0000000000000000 .debug_line
+0000000000000000 l    d  .debug_str	0000000000000000 .debug_str
+0000000000000000 l    d  .debug_line_str	0000000000000000 .debug_line_str
+0000000000000000 l    d  .note.GNU-stack	0000000000000000 .note.GNU-stack
+0000000000000000 l    d  .eh_frame	0000000000000000 .eh_frame
+0000000000000000 l    d  .comment	0000000000000000 .comment
+0000000000000000 g     F .text	00000000000000e0 benchmark_c
+
+
+
+Disassembly of section .text:
+
+0000000000000000 <benchmark_c>:
+#include <stdint.h>
+
+void benchmark_c( 	float const *i_a,
+             		float const *i_b ) {
+   0:	d100c3ff 	sub	sp, sp, #0x30
+   4:	f90007e0 	str	x0, [sp, #8]
+   8:	f90003e1 	str	x1, [sp]
+
+	long repeat = 10000000000;	
+   c:	d29c8000 	mov	x0, #0xe400                	// #58368
+  10:	f2aa8160 	movk	x0, #0x540b, lsl #16
+  14:	f2c00040 	movk	x0, #0x2, lsl #32
+  18:	f90017e0 	str	x0, [sp, #40]
+	float res[4];
+
+	while(repeat){
+  1c:	1400002a 	b	c4 <benchmark_c+0xc4>
+
+		res[0] = i_a[0] * i_b[0] + res[0];
+  20:	f94007e0 	ldr	x0, [sp, #8]
+  24:	bd40001e 	ldr	s30, [x0]
+  28:	f94003e0 	ldr	x0, [sp]
+  2c:	bd40001f 	ldr	s31, [x0]
+  30:	1e3f0bde 	fmul	s30, s30, s31
+  34:	bd401bff 	ldr	s31, [sp, #24]
+  38:	1e3f2bdf 	fadd	s31, s30, s31
+  3c:	bd001bff 	str	s31, [sp, #24]
+		res[1] = i_a[1] * i_b[1] + res[1];
+  40:	f94007e0 	ldr	x0, [sp, #8]
+  44:	91001000 	add	x0, x0, #0x4
+  48:	bd40001e 	ldr	s30, [x0]
+  4c:	f94003e0 	ldr	x0, [sp]
+  50:	91001000 	add	x0, x0, #0x4
+  54:	bd40001f 	ldr	s31, [x0]
+  58:	1e3f0bde 	fmul	s30, s30, s31
+  5c:	bd401fff 	ldr	s31, [sp, #28]
+  60:	1e3f2bdf 	fadd	s31, s30, s31
+  64:	bd001fff 	str	s31, [sp, #28]
+		res[2] = i_a[2] * i_b[2] + res[2];
+  68:	f94007e0 	ldr	x0, [sp, #8]
+  6c:	91002000 	add	x0, x0, #0x8
+  70:	bd40001e 	ldr	s30, [x0]
+  74:	f94003e0 	ldr	x0, [sp]
+  78:	91002000 	add	x0, x0, #0x8
+  7c:	bd40001f 	ldr	s31, [x0]
+  80:	1e3f0bde 	fmul	s30, s30, s31
+  84:	bd4023ff 	ldr	s31, [sp, #32]
+  88:	1e3f2bdf 	fadd	s31, s30, s31
+  8c:	bd0023ff 	str	s31, [sp, #32]
+		res[3] = i_a[3] * i_b[3] + res[3];
+  90:	f94007e0 	ldr	x0, [sp, #8]
+  94:	91003000 	add	x0, x0, #0xc
+  98:	bd40001e 	ldr	s30, [x0]
+  9c:	f94003e0 	ldr	x0, [sp]
+  a0:	91003000 	add	x0, x0, #0xc
+  a4:	bd40001f 	ldr	s31, [x0]
+  a8:	1e3f0bde 	fmul	s30, s30, s31
+  ac:	bd4027ff 	ldr	s31, [sp, #36]
+  b0:	1e3f2bdf 	fadd	s31, s30, s31
+  b4:	bd0027ff 	str	s31, [sp, #36]
+
+		repeat-=4;
+  b8:	f94017e0 	ldr	x0, [sp, #40]
+  bc:	d1001000 	sub	x0, x0, #0x4
+  c0:	f90017e0 	str	x0, [sp, #40]
+	while(repeat){
+  c4:	f94017e0 	ldr	x0, [sp, #40]
+  c8:	f100001f 	cmp	x0, #0x0
+  cc:	54fffaa1 	b.ne	20 <benchmark_c+0x20>  // b.any
+
+	}
+}
+  d0:	d503201f 	nop
+  d4:	d503201f 	nop
+  d8:	9100c3ff 	add	sp, sp, #0x30
+  dc:	d65f03c0 	ret

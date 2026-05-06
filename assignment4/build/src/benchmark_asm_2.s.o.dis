@@ -1,0 +1,42 @@
+
+./build/./src/benchmark_asm_2.s.o:     file format elf64-littleaarch64
+
+SYMBOL TABLE:
+0000000000000000 l    d  .text	0000000000000000 .text
+0000000000000000 l    d  .data	0000000000000000 .data
+0000000000000000 l    d  .bss	0000000000000000 .bss
+0000000000000024 l       .text	0000000000000000 while
+0000000000000044 l       .text	0000000000000000 finish
+0000000000000000 g     F .text	000000000000004c benchmark_asm_2
+
+
+
+Disassembly of section .text:
+
+0000000000000000 <benchmark_asm_2>:
+   0:	58000284 	ldr	x4, 50 <finish+0xc>
+   4:	bd400022 	ldr	s2, [x1]
+   8:	bd400001 	ldr	s1, [x0]
+   c:	bd400424 	ldr	s4, [x1, #4]
+  10:	bd400403 	ldr	s3, [x0, #4]
+  14:	bd400826 	ldr	s6, [x1, #8]
+  18:	bd400805 	ldr	s5, [x0, #8]
+  1c:	bd400c28 	ldr	s8, [x1, #12]
+  20:	bd400c07 	ldr	s7, [x0, #12]
+
+0000000000000024 <while>:
+  24:	eb1f009f 	cmp	x4, xzr
+  28:	540000e0 	b.eq	44 <finish>  // b.none
+  2c:	1f022429 	fmadd	s9, s1, s2, s9
+  30:	1f04286a 	fmadd	s10, s3, s4, s10
+  34:	1f062cab 	fmadd	s11, s5, s6, s11
+  38:	1f0830ec 	fmadd	s12, s7, s8, s12
+  3c:	d1001084 	sub	x4, x4, #0x4
+  40:	17fffff9 	b	24 <while>
+
+0000000000000044 <finish>:
+  44:	d65f03c0 	ret
+  48:	d65f03c0 	ret
+  4c:	00000000 	udf	#0
+  50:	540be400 	.word	0x540be400
+  54:	00000002 	.word	0x00000002

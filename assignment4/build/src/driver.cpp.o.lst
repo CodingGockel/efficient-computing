@@ -1,0 +1,709 @@
+
+build/./src/driver.cpp.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <_Z22benchmark_inline_asm_1PKfS0_>:
+  void benchmark_asm_2( float const * i_a,
+                 		float const * i_b );
+}
+
+void benchmark_inline_asm_1( float const * i_a,
+             				 float const * i_b ){
+   0:	d10083ff 	sub	sp, sp, #0x20
+   4:	f90007e0 	str	x0, [sp, #8]
+   8:	f90003e1 	str	x1, [sp]
+	for(long i = 0; i < 10000000000; i+=4){
+   c:	f9000fff 	str	xzr, [sp, #24]
+  10:	14000008 	b	30 <_Z22benchmark_inline_asm_1PKfS0_+0x30>
+		asm (           
+  14:	f94007e0 	ldr	x0, [sp, #8]
+  18:	f94003e1 	ldr	x1, [sp]
+  1c:	4c407822 	ld1	{v2.4s}, [x1]
+  20:	4c407801 	ld1	{v1.4s}, [x0]
+	for(long i = 0; i < 10000000000; i+=4){
+  24:	f9400fe0 	ldr	x0, [sp, #24]
+  28:	91001000 	add	x0, x0, #0x4
+  2c:	f9000fe0 	str	x0, [sp, #24]
+  30:	f9400fe1 	ldr	x1, [sp, #24]
+  34:	d29c7fe0 	movz	x0, #0xe3ff
+  38:	f2aa8160 	movk	x0, #0x540b, lsl #16
+  3c:	f2c00040 	movk	x0, #0x2, lsl #32
+  40:	eb00003f 	subs	xzr, x1, x0
+  44:	54fffe8d 	b.le	14 <_Z22benchmark_inline_asm_1PKfS0_+0x14>
+				"r"(&i_b[0])									//input registers linked to variables "f" = floating point register, "r" = register
+			:   "v4", "v3", "v2", "v1"	
+																//clobbers = all used SIMD registers and memory (pointed to by input registers)
+		);
+	}
+	return;
+  48:	d503201f 	hint	#0x0
+}
+  4c:	910083ff 	add	sp, sp, #0x20
+  50:	d65f03c0 	ret
+
+0000000000000054 <_Z22benchmark_inline_asm_2PKfS0_>:
+
+void benchmark_inline_asm_2( float const * i_a,
+             				 float const * i_b ){
+  54:	d10043ff 	sub	sp, sp, #0x10
+  58:	f90007e0 	str	x0, [sp, #8]
+  5c:	f90003e1 	str	x1, [sp]
+	asm (      
+  60:	d503201f 	hint	#0x0
+		"nop;"
+		: 								//output registers 
+		: 								//input registers 
+		:  								//clobbers = all used/ dirty SIMD registers and memory (pointed to by input registers)
+	);
+	return;
+  64:	d503201f 	hint	#0x0
+}
+  68:	910043ff 	add	sp, sp, #0x10
+  6c:	d65f03c0 	ret
+
+0000000000000070 <main>:
+
+
+
+int main() {
+  70:	a9b57bfd 	stp	x29, x30, [sp, #-176]!
+  74:	910003fd 	add	x29, sp, #0x0
+  78:	f9000bf3 	str	x19, [sp, #16]
+  float l_a[4] = { 1.0f, 1.0f, 1.0f, 1.0f};
+  7c:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  80:	bd006bff 	str	s31, [sp, #104]
+  84:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  88:	bd006fff 	str	s31, [sp, #108]
+  8c:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  90:	bd0073ff 	str	s31, [sp, #112]
+  94:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  98:	bd0077ff 	str	s31, [sp, #116]
+  float l_b[4] = { 1.0f, 1.0f, 1.0f, 1.0f};
+  9c:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  a0:	bd005bff 	str	s31, [sp, #88]
+  a4:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  a8:	bd005fff 	str	s31, [sp, #92]
+  ac:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  b0:	bd0063ff 	str	s31, [sp, #96]
+  b4:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  b8:	bd0067ff 	str	s31, [sp, #100]
+  std::chrono::steady_clock::time_point start, stop;
+  bc:	f9002bff 	str	xzr, [sp, #80]
+  c0:	f90027ff 	str	xzr, [sp, #72]
+  std::chrono::duration<double> duration1, duration2, duration3, duration4, duration5;
+  double FLOPS = 0;
+  c4:	f90057ff 	str	xzr, [sp, #168]
+  long repetitions = 10000000000;
+  c8:	d29c8000 	movz	x0, #0xe400
+  cc:	f2aa8160 	movk	x0, #0x540b, lsl #16
+  d0:	f2c00040 	movk	x0, #0x2, lsl #32
+  d4:	f90053e0 	str	x0, [sp, #160]
+
+  // benchmark_c
+  std::cout << "### calling benchmark_c ###" << std::endl;
+  d8:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			d8: R_AARCH64_ADR_PREL_PG_HI21	.rodata
+  dc:	91000001 	add	x1, x0, #0x0
+			dc: R_AARCH64_ADD_ABS_LO12_NC	.rodata
+  e0:	90000000 	adrp	x0, 0 <_ZSt4cout>
+			e0: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4cout
+  e4:	91000000 	add	x0, x0, #0x0
+			e4: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4cout
+  e8:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			e8: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+  ec:	aa0003e2 	orr	x2, xzr, x0
+  f0:	90000000 	adrp	x0, 0 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_>
+			f0: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+  f4:	91000001 	add	x1, x0, #0x0
+			f4: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+  f8:	aa0203e0 	orr	x0, xzr, x2
+  fc:	94000000 	bl	0 <_ZNSolsEPFRSoS_E>
+			fc: R_AARCH64_CALL26	_ZNSolsEPFRSoS_E
+  start = std::chrono::steady_clock::now();
+ 100:	94000000 	bl	0 <_ZNSt6chrono3_V212steady_clock3nowEv>
+			100: R_AARCH64_CALL26	_ZNSt6chrono3_V212steady_clock3nowEv
+ 104:	f9002be0 	str	x0, [sp, #80]
+  benchmark_c( l_a, l_b );
+ 108:	910163e1 	add	x1, sp, #0x58
+ 10c:	9101a3e0 	add	x0, sp, #0x68
+ 110:	94000000 	bl	0 <benchmark_c>
+			110: R_AARCH64_CALL26	benchmark_c
+  stop = std::chrono::steady_clock::now();
+ 114:	94000000 	bl	0 <_ZNSt6chrono3_V212steady_clock3nowEv>
+			114: R_AARCH64_CALL26	_ZNSt6chrono3_V212steady_clock3nowEv
+ 118:	f90027e0 	str	x0, [sp, #72]
+  duration1 = std::chrono::duration_cast< std::chrono::duration< double> >( stop - start );
+ 11c:	910143e1 	add	x1, sp, #0x50
+ 120:	910123e0 	add	x0, sp, #0x48
+ 124:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			124: R_AARCH64_CALL26	_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE
+ 128:	f9003fe0 	str	x0, [sp, #120]
+ 12c:	9101e3e0 	add	x0, sp, #0x78
+ 130:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			130: R_AARCH64_CALL26	_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE
+ 134:	1e60401f 	fmov	d31, d0
+ 138:	fd0023ff 	str	d31, [sp, #64]
+
+  // benchmark_asm_1
+  std::cout << "### calling benchmark_asm_1 ###" << std::endl;
+ 13c:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			13c: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0x20
+ 140:	91000001 	add	x1, x0, #0x0
+			140: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0x20
+ 144:	90000000 	adrp	x0, 0 <_ZSt4cout>
+			144: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4cout
+ 148:	91000000 	add	x0, x0, #0x0
+			148: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4cout
+ 14c:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			14c: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 150:	aa0003e2 	orr	x2, xzr, x0
+ 154:	90000000 	adrp	x0, 0 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_>
+			154: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 158:	91000001 	add	x1, x0, #0x0
+			158: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 15c:	aa0203e0 	orr	x0, xzr, x2
+ 160:	94000000 	bl	0 <_ZNSolsEPFRSoS_E>
+			160: R_AARCH64_CALL26	_ZNSolsEPFRSoS_E
+  start = std::chrono::steady_clock::now();
+ 164:	94000000 	bl	0 <_ZNSt6chrono3_V212steady_clock3nowEv>
+			164: R_AARCH64_CALL26	_ZNSt6chrono3_V212steady_clock3nowEv
+ 168:	f9002be0 	str	x0, [sp, #80]
+  benchmark_asm_1( l_a, l_b );
+ 16c:	910163e1 	add	x1, sp, #0x58
+ 170:	9101a3e0 	add	x0, sp, #0x68
+ 174:	94000000 	bl	0 <benchmark_asm_1>
+			174: R_AARCH64_CALL26	benchmark_asm_1
+  stop = std::chrono::steady_clock::now();
+ 178:	94000000 	bl	0 <_ZNSt6chrono3_V212steady_clock3nowEv>
+			178: R_AARCH64_CALL26	_ZNSt6chrono3_V212steady_clock3nowEv
+ 17c:	f90027e0 	str	x0, [sp, #72]
+  duration2 = std::chrono::duration_cast< std::chrono::duration< double> >( stop - start );
+ 180:	910143e1 	add	x1, sp, #0x50
+ 184:	910123e0 	add	x0, sp, #0x48
+ 188:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			188: R_AARCH64_CALL26	_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE
+ 18c:	f90043e0 	str	x0, [sp, #128]
+ 190:	910203e0 	add	x0, sp, #0x80
+ 194:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			194: R_AARCH64_CALL26	_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE
+ 198:	1e60401f 	fmov	d31, d0
+ 19c:	fd001fff 	str	d31, [sp, #56]
+
+  // benchmark_asm_2
+  std::cout << "### calling benchmark_asm_2 ###" << std::endl;
+ 1a0:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			1a0: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0x40
+ 1a4:	91000001 	add	x1, x0, #0x0
+			1a4: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0x40
+ 1a8:	90000000 	adrp	x0, 0 <_ZSt4cout>
+			1a8: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4cout
+ 1ac:	91000000 	add	x0, x0, #0x0
+			1ac: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4cout
+ 1b0:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			1b0: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 1b4:	aa0003e2 	orr	x2, xzr, x0
+ 1b8:	90000000 	adrp	x0, 0 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_>
+			1b8: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 1bc:	91000001 	add	x1, x0, #0x0
+			1bc: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 1c0:	aa0203e0 	orr	x0, xzr, x2
+ 1c4:	94000000 	bl	0 <_ZNSolsEPFRSoS_E>
+			1c4: R_AARCH64_CALL26	_ZNSolsEPFRSoS_E
+  start = std::chrono::steady_clock::now();
+ 1c8:	94000000 	bl	0 <_ZNSt6chrono3_V212steady_clock3nowEv>
+			1c8: R_AARCH64_CALL26	_ZNSt6chrono3_V212steady_clock3nowEv
+ 1cc:	f9002be0 	str	x0, [sp, #80]
+  benchmark_asm_2( l_a, l_b );
+ 1d0:	910163e1 	add	x1, sp, #0x58
+ 1d4:	9101a3e0 	add	x0, sp, #0x68
+ 1d8:	94000000 	bl	0 <benchmark_asm_2>
+			1d8: R_AARCH64_CALL26	benchmark_asm_2
+  stop = std::chrono::steady_clock::now();
+ 1dc:	94000000 	bl	0 <_ZNSt6chrono3_V212steady_clock3nowEv>
+			1dc: R_AARCH64_CALL26	_ZNSt6chrono3_V212steady_clock3nowEv
+ 1e0:	f90027e0 	str	x0, [sp, #72]
+  duration3 = std::chrono::duration_cast< std::chrono::duration< double> >( stop - start );  
+ 1e4:	910143e1 	add	x1, sp, #0x50
+ 1e8:	910123e0 	add	x0, sp, #0x48
+ 1ec:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			1ec: R_AARCH64_CALL26	_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE
+ 1f0:	f90047e0 	str	x0, [sp, #136]
+ 1f4:	910223e0 	add	x0, sp, #0x88
+ 1f8:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			1f8: R_AARCH64_CALL26	_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE
+ 1fc:	1e60401f 	fmov	d31, d0
+ 200:	fd001bff 	str	d31, [sp, #48]
+
+  // benchmark_inline_asm_1
+  std::cout << "### calling benchmark_inline_asm ###" << std::endl;
+ 204:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			204: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0x60
+ 208:	91000001 	add	x1, x0, #0x0
+			208: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0x60
+ 20c:	90000000 	adrp	x0, 0 <_ZSt4cout>
+			20c: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4cout
+ 210:	91000000 	add	x0, x0, #0x0
+			210: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4cout
+ 214:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			214: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 218:	aa0003e2 	orr	x2, xzr, x0
+ 21c:	90000000 	adrp	x0, 0 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_>
+			21c: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 220:	91000001 	add	x1, x0, #0x0
+			220: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 224:	aa0203e0 	orr	x0, xzr, x2
+ 228:	94000000 	bl	0 <_ZNSolsEPFRSoS_E>
+			228: R_AARCH64_CALL26	_ZNSolsEPFRSoS_E
+  start = std::chrono::steady_clock::now();
+ 22c:	94000000 	bl	0 <_ZNSt6chrono3_V212steady_clock3nowEv>
+			22c: R_AARCH64_CALL26	_ZNSt6chrono3_V212steady_clock3nowEv
+ 230:	f9002be0 	str	x0, [sp, #80]
+  benchmark_inline_asm_1( l_a, l_b );
+ 234:	910163e1 	add	x1, sp, #0x58
+ 238:	9101a3e0 	add	x0, sp, #0x68
+ 23c:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			23c: R_AARCH64_CALL26	_Z22benchmark_inline_asm_1PKfS0_
+  stop = std::chrono::steady_clock::now();
+ 240:	94000000 	bl	0 <_ZNSt6chrono3_V212steady_clock3nowEv>
+			240: R_AARCH64_CALL26	_ZNSt6chrono3_V212steady_clock3nowEv
+ 244:	f90027e0 	str	x0, [sp, #72]
+  duration4 = std::chrono::duration_cast< std::chrono::duration< double> >( stop - start );  
+ 248:	910143e1 	add	x1, sp, #0x50
+ 24c:	910123e0 	add	x0, sp, #0x48
+ 250:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			250: R_AARCH64_CALL26	_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE
+ 254:	f9004be0 	str	x0, [sp, #144]
+ 258:	910243e0 	add	x0, sp, #0x90
+ 25c:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			25c: R_AARCH64_CALL26	_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE
+ 260:	1e60401f 	fmov	d31, d0
+ 264:	fd0017ff 	str	d31, [sp, #40]
+
+  // benchmark_inline_asm_2
+  std::cout << "### calling benchmark_inline_asm ###" << std::endl;
+ 268:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			268: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0x60
+ 26c:	91000001 	add	x1, x0, #0x0
+			26c: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0x60
+ 270:	90000000 	adrp	x0, 0 <_ZSt4cout>
+			270: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4cout
+ 274:	91000000 	add	x0, x0, #0x0
+			274: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4cout
+ 278:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			278: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 27c:	aa0003e2 	orr	x2, xzr, x0
+ 280:	90000000 	adrp	x0, 0 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_>
+			280: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 284:	91000001 	add	x1, x0, #0x0
+			284: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 288:	aa0203e0 	orr	x0, xzr, x2
+ 28c:	94000000 	bl	0 <_ZNSolsEPFRSoS_E>
+			28c: R_AARCH64_CALL26	_ZNSolsEPFRSoS_E
+  start = std::chrono::steady_clock::now();
+ 290:	94000000 	bl	0 <_ZNSt6chrono3_V212steady_clock3nowEv>
+			290: R_AARCH64_CALL26	_ZNSt6chrono3_V212steady_clock3nowEv
+ 294:	f9002be0 	str	x0, [sp, #80]
+  benchmark_inline_asm_2( l_a, l_b );
+ 298:	910163e1 	add	x1, sp, #0x58
+ 29c:	9101a3e0 	add	x0, sp, #0x68
+ 2a0:	94000000 	bl	54 <_Z22benchmark_inline_asm_2PKfS0_>
+			2a0: R_AARCH64_CALL26	_Z22benchmark_inline_asm_2PKfS0_
+  stop = std::chrono::steady_clock::now();
+ 2a4:	94000000 	bl	0 <_ZNSt6chrono3_V212steady_clock3nowEv>
+			2a4: R_AARCH64_CALL26	_ZNSt6chrono3_V212steady_clock3nowEv
+ 2a8:	f90027e0 	str	x0, [sp, #72]
+  duration5 = std::chrono::duration_cast< std::chrono::duration< double> >( stop - start );  
+ 2ac:	910143e1 	add	x1, sp, #0x50
+ 2b0:	910123e0 	add	x0, sp, #0x48
+ 2b4:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			2b4: R_AARCH64_CALL26	_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE
+ 2b8:	f9004fe0 	str	x0, [sp, #152]
+ 2bc:	910263e0 	add	x0, sp, #0x98
+ 2c0:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			2c0: R_AARCH64_CALL26	_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE
+ 2c4:	1e60401f 	fmov	d31, d0
+ 2c8:	fd0013ff 	str	d31, [sp, #32]
+
+  std::cout << "Duration C: " << duration1.count() << " seconds" << std::endl;
+ 2cc:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			2cc: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0x88
+ 2d0:	91000001 	add	x1, x0, #0x0
+			2d0: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0x88
+ 2d4:	90000000 	adrp	x0, 0 <_ZSt4cout>
+			2d4: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4cout
+ 2d8:	91000000 	add	x0, x0, #0x0
+			2d8: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4cout
+ 2dc:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			2dc: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 2e0:	aa0003f3 	orr	x19, xzr, x0
+ 2e4:	910103e0 	add	x0, sp, #0x40
+ 2e8:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			2e8: R_AARCH64_CALL26	_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv
+ 2ec:	1e60401f 	fmov	d31, d0
+ 2f0:	1e6043e0 	fmov	d0, d31
+ 2f4:	aa1303e0 	orr	x0, xzr, x19
+ 2f8:	94000000 	bl	0 <_ZNSolsEd>
+			2f8: R_AARCH64_CALL26	_ZNSolsEd
+ 2fc:	aa0003e2 	orr	x2, xzr, x0
+ 300:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			300: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0x98
+ 304:	91000001 	add	x1, x0, #0x0
+			304: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0x98
+ 308:	aa0203e0 	orr	x0, xzr, x2
+ 30c:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			30c: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 310:	aa0003e2 	orr	x2, xzr, x0
+ 314:	90000000 	adrp	x0, 0 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_>
+			314: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 318:	91000001 	add	x1, x0, #0x0
+			318: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 31c:	aa0203e0 	orr	x0, xzr, x2
+ 320:	94000000 	bl	0 <_ZNSolsEPFRSoS_E>
+			320: R_AARCH64_CALL26	_ZNSolsEPFRSoS_E
+  std::cout << "Duration ASM SIMD: " << duration2.count() << " seconds" << std::endl;
+ 324:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			324: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0xa8
+ 328:	91000001 	add	x1, x0, #0x0
+			328: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0xa8
+ 32c:	90000000 	adrp	x0, 0 <_ZSt4cout>
+			32c: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4cout
+ 330:	91000000 	add	x0, x0, #0x0
+			330: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4cout
+ 334:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			334: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 338:	aa0003f3 	orr	x19, xzr, x0
+ 33c:	9100e3e0 	add	x0, sp, #0x38
+ 340:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			340: R_AARCH64_CALL26	_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv
+ 344:	1e60401f 	fmov	d31, d0
+ 348:	1e6043e0 	fmov	d0, d31
+ 34c:	aa1303e0 	orr	x0, xzr, x19
+ 350:	94000000 	bl	0 <_ZNSolsEd>
+			350: R_AARCH64_CALL26	_ZNSolsEd
+ 354:	aa0003e2 	orr	x2, xzr, x0
+ 358:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			358: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0x98
+ 35c:	91000001 	add	x1, x0, #0x0
+			35c: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0x98
+ 360:	aa0203e0 	orr	x0, xzr, x2
+ 364:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			364: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 368:	aa0003e2 	orr	x2, xzr, x0
+ 36c:	90000000 	adrp	x0, 0 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_>
+			36c: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 370:	91000001 	add	x1, x0, #0x0
+			370: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 374:	aa0203e0 	orr	x0, xzr, x2
+ 378:	94000000 	bl	0 <_ZNSolsEPFRSoS_E>
+			378: R_AARCH64_CALL26	_ZNSolsEPFRSoS_E
+  std::cout << "Duration ASM No SIMD: " << duration3.count() << " seconds" << std::endl;
+ 37c:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			37c: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0xc0
+ 380:	91000001 	add	x1, x0, #0x0
+			380: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0xc0
+ 384:	90000000 	adrp	x0, 0 <_ZSt4cout>
+			384: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4cout
+ 388:	91000000 	add	x0, x0, #0x0
+			388: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4cout
+ 38c:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			38c: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 390:	aa0003f3 	orr	x19, xzr, x0
+ 394:	9100c3e0 	add	x0, sp, #0x30
+ 398:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			398: R_AARCH64_CALL26	_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv
+ 39c:	1e60401f 	fmov	d31, d0
+ 3a0:	1e6043e0 	fmov	d0, d31
+ 3a4:	aa1303e0 	orr	x0, xzr, x19
+ 3a8:	94000000 	bl	0 <_ZNSolsEd>
+			3a8: R_AARCH64_CALL26	_ZNSolsEd
+ 3ac:	aa0003e2 	orr	x2, xzr, x0
+ 3b0:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			3b0: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0x98
+ 3b4:	91000001 	add	x1, x0, #0x0
+			3b4: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0x98
+ 3b8:	aa0203e0 	orr	x0, xzr, x2
+ 3bc:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			3bc: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 3c0:	aa0003e2 	orr	x2, xzr, x0
+ 3c4:	90000000 	adrp	x0, 0 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_>
+			3c4: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 3c8:	91000001 	add	x1, x0, #0x0
+			3c8: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 3cc:	aa0203e0 	orr	x0, xzr, x2
+ 3d0:	94000000 	bl	0 <_ZNSolsEPFRSoS_E>
+			3d0: R_AARCH64_CALL26	_ZNSolsEPFRSoS_E
+  std::cout << "Duration Inline ASM SIMD (Q-Form): " << duration4.count() << " seconds" << std::endl;
+ 3d4:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			3d4: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0xd8
+ 3d8:	91000001 	add	x1, x0, #0x0
+			3d8: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0xd8
+ 3dc:	90000000 	adrp	x0, 0 <_ZSt4cout>
+			3dc: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4cout
+ 3e0:	91000000 	add	x0, x0, #0x0
+			3e0: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4cout
+ 3e4:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			3e4: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 3e8:	aa0003f3 	orr	x19, xzr, x0
+ 3ec:	9100a3e0 	add	x0, sp, #0x28
+ 3f0:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			3f0: R_AARCH64_CALL26	_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv
+ 3f4:	1e60401f 	fmov	d31, d0
+ 3f8:	1e6043e0 	fmov	d0, d31
+ 3fc:	aa1303e0 	orr	x0, xzr, x19
+ 400:	94000000 	bl	0 <_ZNSolsEd>
+			400: R_AARCH64_CALL26	_ZNSolsEd
+ 404:	aa0003e2 	orr	x2, xzr, x0
+ 408:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			408: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0x98
+ 40c:	91000001 	add	x1, x0, #0x0
+			40c: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0x98
+ 410:	aa0203e0 	orr	x0, xzr, x2
+ 414:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			414: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 418:	aa0003e2 	orr	x2, xzr, x0
+ 41c:	90000000 	adrp	x0, 0 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_>
+			41c: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 420:	91000001 	add	x1, x0, #0x0
+			420: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 424:	aa0203e0 	orr	x0, xzr, x2
+ 428:	94000000 	bl	0 <_ZNSolsEPFRSoS_E>
+			428: R_AARCH64_CALL26	_ZNSolsEPFRSoS_E
+  std::cout << "Duration Inline ASM SIMD (D-Form): " << duration5.count() << " seconds" << std::endl;
+ 42c:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			42c: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0x100
+ 430:	91000001 	add	x1, x0, #0x0
+			430: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0x100
+ 434:	90000000 	adrp	x0, 0 <_ZSt4cout>
+			434: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4cout
+ 438:	91000000 	add	x0, x0, #0x0
+			438: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4cout
+ 43c:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			43c: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 440:	aa0003f3 	orr	x19, xzr, x0
+ 444:	910083e0 	add	x0, sp, #0x20
+ 448:	94000000 	bl	0 <_Z22benchmark_inline_asm_1PKfS0_>
+			448: R_AARCH64_CALL26	_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv
+ 44c:	1e60401f 	fmov	d31, d0
+ 450:	1e6043e0 	fmov	d0, d31
+ 454:	aa1303e0 	orr	x0, xzr, x19
+ 458:	94000000 	bl	0 <_ZNSolsEd>
+			458: R_AARCH64_CALL26	_ZNSolsEd
+ 45c:	aa0003e2 	orr	x2, xzr, x0
+ 460:	90000000 	adrp	x0, 0 <_Z22benchmark_inline_asm_1PKfS0_>
+			460: R_AARCH64_ADR_PREL_PG_HI21	.rodata+0x98
+ 464:	91000001 	add	x1, x0, #0x0
+			464: R_AARCH64_ADD_ABS_LO12_NC	.rodata+0x98
+ 468:	aa0203e0 	orr	x0, xzr, x2
+ 46c:	94000000 	bl	0 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc>
+			46c: R_AARCH64_CALL26	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+ 470:	aa0003e2 	orr	x2, xzr, x0
+ 474:	90000000 	adrp	x0, 0 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_>
+			474: R_AARCH64_ADR_PREL_PG_HI21	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 478:	91000001 	add	x1, x0, #0x0
+			478: R_AARCH64_ADD_ABS_LO12_NC	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
+ 47c:	aa0203e0 	orr	x0, xzr, x2
+ 480:	94000000 	bl	0 <_ZNSolsEPFRSoS_E>
+			480: R_AARCH64_CALL26	_ZNSolsEPFRSoS_E
+
+  return EXIT_SUCCESS;
+ 484:	52800000 	movz	w0, #0x0
+}
+ 488:	f9400bf3 	ldr	x19, [sp, #16]
+ 48c:	a8cb7bfd 	ldp	x29, x30, [sp], #176
+ 490:	d65f03c0 	ret
+
+Disassembly of section .text._ZNSt6chrono8durationIlSt5ratioILl1ELl1000000000EEEC2IlvEERKT_:
+
+0000000000000000 <_ZNSt6chrono8durationIlSt5ratioILl1ELl1000000000EEEC1IlvEERKT_>:
+	// _GLIBCXX_RESOLVE_LIB_DEFECTS
+	// 3050. Conversion specification problem in chrono::duration
+	template<typename _Rep2, typename = _Require<
+		 is_convertible<const _Rep2&, rep>,
+		 __or_<__is_float<rep>, __not_<__is_float<_Rep2>>>>>
+	  constexpr explicit duration(const _Rep2& __rep)
+   0:	d10043ff 	sub	sp, sp, #0x10
+   4:	f90007e0 	str	x0, [sp, #8]
+   8:	f90003e1 	str	x1, [sp]
+	  : __r(static_cast<rep>(__rep)) { }
+   c:	f94003e0 	ldr	x0, [sp]
+  10:	f9400001 	ldr	x1, [x0]
+  14:	f94007e0 	ldr	x0, [sp, #8]
+  18:	f9000001 	str	x1, [x0]
+  1c:	d503201f 	hint	#0x0
+  20:	910043ff 	add	sp, sp, #0x10
+  24:	d65f03c0 	ret
+
+Disassembly of section .text._ZNKSt6chrono8durationIlSt5ratioILl1ELl1000000000EEE5countEv:
+
+0000000000000000 <_ZNKSt6chrono8durationIlSt5ratioILl1ELl1000000000EEE5countEv>:
+	~duration() = default;
+	duration& operator=(const duration&) = default;
+
+	// 20.11.5.2 observer
+	constexpr rep
+	count() const
+   0:	d10043ff 	sub	sp, sp, #0x10
+   4:	f90007e0 	str	x0, [sp, #8]
+	{ return __r; }
+   8:	f94007e0 	ldr	x0, [sp, #8]
+   c:	f9400000 	ldr	x0, [x0]
+  10:	910043ff 	add	sp, sp, #0x10
+  14:	d65f03c0 	ret
+
+Disassembly of section .text._ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE:
+
+0000000000000000 <_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE>:
+      }
+
+    /// The difference between two time points (as a duration)
+    template<typename _Clock, typename _Dur1, typename _Dur2>
+      constexpr typename common_type<_Dur1, _Dur2>::type
+      operator-(const time_point<_Clock, _Dur1>& __lhs,
+   0:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+   4:	910003fd 	add	x29, sp, #0x0
+   8:	f9000fe0 	str	x0, [sp, #24]
+   c:	f9000be1 	str	x1, [sp, #16]
+		const time_point<_Clock, _Dur2>& __rhs)
+      { return __lhs.time_since_epoch() - __rhs.time_since_epoch(); }
+  10:	f9400fe0 	ldr	x0, [sp, #24]
+  14:	94000000 	bl	0 <_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE>
+			14: R_AARCH64_CALL26	_ZNKSt6chrono10time_pointINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEEE16time_since_epochEv
+  18:	f90013e0 	str	x0, [sp, #32]
+  1c:	f9400be0 	ldr	x0, [sp, #16]
+  20:	94000000 	bl	0 <_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE>
+			20: R_AARCH64_CALL26	_ZNKSt6chrono10time_pointINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEEE16time_since_epochEv
+  24:	f90017e0 	str	x0, [sp, #40]
+  28:	9100a3e1 	add	x1, sp, #0x28
+  2c:	910083e0 	add	x0, sp, #0x20
+  30:	94000000 	bl	0 <_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE>
+			30: R_AARCH64_CALL26	_ZNSt6chronomiIlSt5ratioILl1ELl1000000000EElS2_EENSt11common_typeIJNS_8durationIT_T0_EENS4_IT1_T2_EEEE4typeERKS7_RKSA_
+  34:	a8c37bfd 	ldp	x29, x30, [sp], #48
+  38:	d65f03c0 	ret
+
+Disassembly of section .text._ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE:
+
+0000000000000000 <_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE>:
+      duration_cast(const duration<_Rep, _Period>& __d)
+   0:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+   4:	910003fd 	add	x29, sp, #0x0
+   8:	f9000fe0 	str	x0, [sp, #24]
+	  return __dc::__cast(__d);
+   c:	f9400fe0 	ldr	x0, [sp, #24]
+  10:	94000000 	bl	0 <_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE>
+			10: R_AARCH64_CALL26	_ZNSt6chrono20__duration_cast_implINS_8durationIdSt5ratioILl1ELl1EEEES2_ILl1ELl1000000000EEdLb1ELb0EE6__castIlS5_EES4_RKNS1_IT_T0_EE
+  14:	1e60401f 	fmov	d31, d0
+  18:	9e6603e0 	fmov	x0, d31
+  1c:	9e67001f 	fmov	d31, x0
+      }
+  20:	1e6043e0 	fmov	d0, d31
+  24:	a8c27bfd 	ldp	x29, x30, [sp], #32
+  28:	d65f03c0 	ret
+
+Disassembly of section .text._ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv:
+
+0000000000000000 <_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv>:
+	count() const
+   0:	d10043ff 	sub	sp, sp, #0x10
+   4:	f90007e0 	str	x0, [sp, #8]
+	{ return __r; }
+   8:	f94007e0 	ldr	x0, [sp, #8]
+   c:	fd40001f 	ldr	d31, [x0]
+  10:	1e6043e0 	fmov	d0, d31
+  14:	910043ff 	add	sp, sp, #0x10
+  18:	d65f03c0 	ret
+
+Disassembly of section .text._ZNKSt6chrono10time_pointINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEEE16time_since_epochEv:
+
+0000000000000000 <_ZNKSt6chrono10time_pointINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEEE16time_since_epochEv>:
+	time_since_epoch() const
+   0:	d10043ff 	sub	sp, sp, #0x10
+   4:	f90007e0 	str	x0, [sp, #8]
+	{ return __d; }
+   8:	f94007e0 	ldr	x0, [sp, #8]
+   c:	f9400000 	ldr	x0, [x0]
+  10:	910043ff 	add	sp, sp, #0x10
+  14:	d65f03c0 	ret
+
+Disassembly of section .text._ZNSt6chronomiIlSt5ratioILl1ELl1000000000EElS2_EENSt11common_typeIJNS_8durationIT_T0_EENS4_IT1_T2_EEEE4typeERKS7_RKSA_:
+
+0000000000000000 <_ZNSt6chronomiIlSt5ratioILl1ELl1000000000EElS2_EENSt11common_typeIJNS_8durationIT_T0_EENS4_IT1_T2_EEEE4typeERKS7_RKSA_>:
+      operator-(const duration<_Rep1, _Period1>& __lhs,
+   0:	a9bb7bfd 	stp	x29, x30, [sp, #-80]!
+   4:	910003fd 	add	x29, sp, #0x0
+   8:	f9000bf3 	str	x19, [sp, #16]
+   c:	f90017e0 	str	x0, [sp, #40]
+  10:	f90013e1 	str	x1, [sp, #32]
+	return __cd(__cd(__lhs).count() - __cd(__rhs).count());
+  14:	f94017e0 	ldr	x0, [sp, #40]
+  18:	f9400000 	ldr	x0, [x0]
+  1c:	f90023e0 	str	x0, [sp, #64]
+  20:	910103e0 	add	x0, sp, #0x40
+  24:	94000000 	bl	0 <_ZNSt6chronomiIlSt5ratioILl1ELl1000000000EElS2_EENSt11common_typeIJNS_8durationIT_T0_EENS4_IT1_T2_EEEE4typeERKS7_RKSA_>
+			24: R_AARCH64_CALL26	_ZNKSt6chrono8durationIlSt5ratioILl1ELl1000000000EEE5countEv
+  28:	aa0003f3 	orr	x19, xzr, x0
+  2c:	f94013e0 	ldr	x0, [sp, #32]
+  30:	f9400000 	ldr	x0, [x0]
+  34:	f90027e0 	str	x0, [sp, #72]
+  38:	910123e0 	add	x0, sp, #0x48
+  3c:	94000000 	bl	0 <_ZNSt6chronomiIlSt5ratioILl1ELl1000000000EElS2_EENSt11common_typeIJNS_8durationIT_T0_EENS4_IT1_T2_EEEE4typeERKS7_RKSA_>
+			3c: R_AARCH64_CALL26	_ZNKSt6chrono8durationIlSt5ratioILl1ELl1000000000EEE5countEv
+  40:	cb000260 	sub	x0, x19, x0
+  44:	f9001fe0 	str	x0, [sp, #56]
+  48:	9100e3e1 	add	x1, sp, #0x38
+  4c:	9100c3e0 	add	x0, sp, #0x30
+  50:	94000000 	bl	0 <_ZNSt6chronomiIlSt5ratioILl1ELl1000000000EElS2_EENSt11common_typeIJNS_8durationIT_T0_EENS4_IT1_T2_EEEE4typeERKS7_RKSA_>
+			50: R_AARCH64_CALL26	_ZNSt6chrono8durationIlSt5ratioILl1ELl1000000000EEEC1IlvEERKT_
+  54:	f9401be0 	ldr	x0, [sp, #48]
+      }
+  58:	f9400bf3 	ldr	x19, [sp, #16]
+  5c:	a8c57bfd 	ldp	x29, x30, [sp], #80
+  60:	d65f03c0 	ret
+
+Disassembly of section .text._ZNSt6chrono20__duration_cast_implINS_8durationIdSt5ratioILl1ELl1EEEES2_ILl1ELl1000000000EEdLb1ELb0EE6__castIlS5_EES4_RKNS1_IT_T0_EE:
+
+0000000000000000 <_ZNSt6chrono20__duration_cast_implINS_8durationIdSt5ratioILl1ELl1EEEES2_ILl1ELl1000000000EEdLb1ELb0EE6__castIlS5_EES4_RKNS1_IT_T0_EE>:
+	  __cast(const duration<_Rep, _Period>& __d)
+   0:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+   4:	910003fd 	add	x29, sp, #0x0
+   8:	f9000fe0 	str	x0, [sp, #24]
+	      static_cast<_CR>(__d.count()) / static_cast<_CR>(_CF::den)));
+   c:	f9400fe0 	ldr	x0, [sp, #24]
+  10:	94000000 	bl	0 <_ZNSt6chrono20__duration_cast_implINS_8durationIdSt5ratioILl1ELl1EEEES2_ILl1ELl1000000000EEdLb1ELb0EE6__castIlS5_EES4_RKNS1_IT_T0_EE>
+			10: R_AARCH64_CALL26	_ZNKSt6chrono8durationIlSt5ratioILl1ELl1000000000EEE5countEv
+  14:	9e62001f 	scvtf	d31, x0
+  18:	d2d9aca0 	movz	x0, #0xcd65, lsl #32
+  1c:	f2e839a0 	movk	x0, #0x41cd, lsl #48
+  20:	9e67001e 	fmov	d30, x0
+  24:	1e7e1bff 	fdiv	d31, d31, d30
+	    return _ToDur(static_cast<__to_rep>(
+  28:	fd0017ff 	str	d31, [sp, #40]
+  2c:	9100a3e1 	add	x1, sp, #0x28
+  30:	910083e0 	add	x0, sp, #0x20
+  34:	94000000 	bl	0 <_ZNSt6chrono20__duration_cast_implINS_8durationIdSt5ratioILl1ELl1EEEES2_ILl1ELl1000000000EEdLb1ELb0EE6__castIlS5_EES4_RKNS1_IT_T0_EE>
+			34: R_AARCH64_CALL26	_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_
+	      static_cast<_CR>(__d.count()) / static_cast<_CR>(_CF::den)));
+  38:	fd4013ff 	ldr	d31, [sp, #32]
+  3c:	9e6603e0 	fmov	x0, d31
+  40:	9e67001f 	fmov	d31, x0
+	  }
+  44:	1e6043e0 	fmov	d0, d31
+  48:	a8c37bfd 	ldp	x29, x30, [sp], #48
+  4c:	d65f03c0 	ret
+
+Disassembly of section .text._ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC2IdvEERKT_:
+
+0000000000000000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_>:
+	  constexpr explicit duration(const _Rep2& __rep)
+   0:	d10043ff 	sub	sp, sp, #0x10
+   4:	f90007e0 	str	x0, [sp, #8]
+   8:	f90003e1 	str	x1, [sp]
+	  : __r(static_cast<rep>(__rep)) { }
+   c:	f94003e0 	ldr	x0, [sp]
+  10:	fd40001f 	ldr	d31, [x0]
+  14:	f94007e0 	ldr	x0, [sp, #8]
+  18:	fd00001f 	str	d31, [x0]
+  1c:	d503201f 	hint	#0x0
+  20:	910043ff 	add	sp, sp, #0x10
+  24:	d65f03c0 	ret

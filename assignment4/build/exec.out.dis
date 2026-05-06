@@ -1,0 +1,836 @@
+
+./build/exec.out:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+0000000000400808 <_init>:
+  400808:	d503201f 	hint	#0x0
+  40080c:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+  400810:	910003fd 	add	x29, sp, #0x0
+  400814:	9400003c 	bl	400904 <call_weak_fn>
+  400818:	a8c17bfd 	ldp	x29, x30, [sp], #16
+  40081c:	d65f03c0 	ret
+
+Disassembly of section .plt:
+
+0000000000400820 <.plt>:
+  400820:	a9bf7bf0 	stp	x16, x30, [sp, #-16]!
+  400824:	f00000f0 	adrp	x16, 41f000 <__abi_tag+0x1da8c>
+  400828:	f947fe11 	ldr	x17, [x16, #4088]
+  40082c:	913fe210 	add	x16, x16, #0xff8
+  400830:	d61f0220 	br	x17
+  400834:	d503201f 	hint	#0x0
+  400838:	d503201f 	hint	#0x0
+  40083c:	d503201f 	hint	#0x0
+
+0000000000400840 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@plt>:
+  400840:	90000110 	adrp	x16, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400844:	f9400211 	ldr	x17, [x16]
+  400848:	91000210 	add	x16, x16, #0x0
+  40084c:	d61f0220 	br	x17
+
+0000000000400850 <__libc_start_main@plt>:
+  400850:	90000110 	adrp	x16, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400854:	f9400611 	ldr	x17, [x16, #8]
+  400858:	91002210 	add	x16, x16, #0x8
+  40085c:	d61f0220 	br	x17
+
+0000000000400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>:
+  400860:	90000110 	adrp	x16, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400864:	f9400a11 	ldr	x17, [x16, #16]
+  400868:	91004210 	add	x16, x16, #0x10
+  40086c:	d61f0220 	br	x17
+
+0000000000400870 <_ZNSolsEPFRSoS_E@plt>:
+  400870:	90000110 	adrp	x16, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400874:	f9400e11 	ldr	x17, [x16, #24]
+  400878:	91006210 	add	x16, x16, #0x18
+  40087c:	d61f0220 	br	x17
+
+0000000000400880 <_ZNSt6chrono3_V212steady_clock3nowEv@plt>:
+  400880:	90000110 	adrp	x16, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400884:	f9401211 	ldr	x17, [x16, #32]
+  400888:	91008210 	add	x16, x16, #0x20
+  40088c:	d61f0220 	br	x17
+
+0000000000400890 <abort@plt>:
+  400890:	90000110 	adrp	x16, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400894:	f9401611 	ldr	x17, [x16, #40]
+  400898:	9100a210 	add	x16, x16, #0x28
+  40089c:	d61f0220 	br	x17
+
+00000000004008a0 <__gmon_start__@plt>:
+  4008a0:	90000110 	adrp	x16, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  4008a4:	f9401a11 	ldr	x17, [x16, #48]
+  4008a8:	9100c210 	add	x16, x16, #0x30
+  4008ac:	d61f0220 	br	x17
+
+00000000004008b0 <_ZNSolsEd@plt>:
+  4008b0:	90000110 	adrp	x16, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  4008b4:	f9401e11 	ldr	x17, [x16, #56]
+  4008b8:	9100e210 	add	x16, x16, #0x38
+  4008bc:	d61f0220 	br	x17
+
+Disassembly of section .text:
+
+00000000004008c0 <_start>:
+  4008c0:	d503201f 	hint	#0x0
+  4008c4:	d280001d 	movz	x29, #0x0
+  4008c8:	d280001e 	movz	x30, #0x0
+  4008cc:	aa0003e5 	orr	x5, xzr, x0
+  4008d0:	f94003e1 	ldr	x1, [sp]
+  4008d4:	910023e2 	add	x2, sp, #0x8
+  4008d8:	910003e6 	add	x6, sp, #0x0
+  4008dc:	90000000 	adrp	x0, 400000 <_init-0x808>
+  4008e0:	9123d000 	add	x0, x0, #0x8f4
+  4008e4:	d2800003 	movz	x3, #0x0
+  4008e8:	d2800004 	movz	x4, #0x0
+  4008ec:	97ffffd9 	bl	400850 <__libc_start_main@plt>
+  4008f0:	97ffffe8 	bl	400890 <abort@plt>
+
+00000000004008f4 <__wrap_main>:
+  4008f4:	d503201f 	hint	#0x0
+  4008f8:	1400004f 	b	400a34 <main>
+  4008fc:	d503201f 	hint	#0x0
+
+0000000000400900 <_dl_relocate_static_pie>:
+  400900:	d65f03c0 	ret
+
+0000000000400904 <call_weak_fn>:
+  400904:	f00000e0 	adrp	x0, 41f000 <__abi_tag+0x1da8c>
+  400908:	f947ec00 	ldr	x0, [x0, #4056]
+  40090c:	b4000040 	cbz	x0, 400914 <call_weak_fn+0x10>
+  400910:	17ffffe4 	b	4008a0 <__gmon_start__@plt>
+  400914:	d65f03c0 	ret
+  400918:	d503201f 	hint	#0x0
+  40091c:	d503201f 	hint	#0x0
+
+0000000000400920 <deregister_tm_clones>:
+  400920:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400924:	91014000 	add	x0, x0, #0x50
+  400928:	90000101 	adrp	x1, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  40092c:	91014021 	add	x1, x1, #0x50
+  400930:	eb00003f 	subs	xzr, x1, x0
+  400934:	540000c0 	b.eq	40094c <deregister_tm_clones+0x2c>  // b.none
+  400938:	f00000e1 	adrp	x1, 41f000 <__abi_tag+0x1da8c>
+  40093c:	f947e821 	ldr	x1, [x1, #4048]
+  400940:	b4000061 	cbz	x1, 40094c <deregister_tm_clones+0x2c>
+  400944:	aa0103f0 	orr	x16, xzr, x1
+  400948:	d61f0200 	br	x16
+  40094c:	d65f03c0 	ret
+
+0000000000400950 <register_tm_clones>:
+  400950:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400954:	91014000 	add	x0, x0, #0x50
+  400958:	90000101 	adrp	x1, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  40095c:	91014021 	add	x1, x1, #0x50
+  400960:	cb000021 	sub	x1, x1, x0
+  400964:	d37ffc22 	ubfm	x2, x1, #63, #63
+  400968:	8b810c41 	add	x1, x2, x1, asr #3
+  40096c:	9341fc21 	sbfm	x1, x1, #1, #63
+  400970:	b40000c1 	cbz	x1, 400988 <register_tm_clones+0x38>
+  400974:	f00000e2 	adrp	x2, 41f000 <__abi_tag+0x1da8c>
+  400978:	f947f042 	ldr	x2, [x2, #4064]
+  40097c:	b4000062 	cbz	x2, 400988 <register_tm_clones+0x38>
+  400980:	aa0203f0 	orr	x16, xzr, x2
+  400984:	d61f0200 	br	x16
+  400988:	d65f03c0 	ret
+
+000000000040098c <__do_global_dtors_aux>:
+  40098c:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+  400990:	910003fd 	add	x29, sp, #0x0
+  400994:	f9000bf3 	str	x19, [sp, #16]
+  400998:	90000113 	adrp	x19, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  40099c:	39464260 	ldrb	w0, [x19, #400]
+  4009a0:	37000080 	tbnz	w0, #0, 4009b0 <__do_global_dtors_aux+0x24>
+  4009a4:	97ffffdf 	bl	400920 <deregister_tm_clones>
+  4009a8:	52800020 	movz	w0, #0x1
+  4009ac:	39064260 	strb	w0, [x19, #400]
+  4009b0:	f9400bf3 	ldr	x19, [sp, #16]
+  4009b4:	a8c27bfd 	ldp	x29, x30, [sp], #32
+  4009b8:	d65f03c0 	ret
+  4009bc:	d503201f 	hint	#0x0
+
+00000000004009c0 <frame_dummy>:
+  4009c0:	17ffffe4 	b	400950 <register_tm_clones>
+
+00000000004009c4 <_Z22benchmark_inline_asm_1PKfS0_>:
+  void benchmark_asm_2( float const * i_a,
+                 		float const * i_b );
+}
+
+void benchmark_inline_asm_1( float const * i_a,
+             				 float const * i_b ){
+  4009c4:	d10083ff 	sub	sp, sp, #0x20
+  4009c8:	f90007e0 	str	x0, [sp, #8]
+  4009cc:	f90003e1 	str	x1, [sp]
+	for(long i = 0; i < 10000000000; i+=4){
+  4009d0:	f9000fff 	str	xzr, [sp, #24]
+  4009d4:	14000008 	b	4009f4 <_Z22benchmark_inline_asm_1PKfS0_+0x30>
+		asm (           
+  4009d8:	f94007e0 	ldr	x0, [sp, #8]
+  4009dc:	f94003e1 	ldr	x1, [sp]
+  4009e0:	4c407822 	ld1	{v2.4s}, [x1]
+  4009e4:	4c407801 	ld1	{v1.4s}, [x0]
+	for(long i = 0; i < 10000000000; i+=4){
+  4009e8:	f9400fe0 	ldr	x0, [sp, #24]
+  4009ec:	91001000 	add	x0, x0, #0x4
+  4009f0:	f9000fe0 	str	x0, [sp, #24]
+  4009f4:	f9400fe1 	ldr	x1, [sp, #24]
+  4009f8:	d29c7fe0 	movz	x0, #0xe3ff
+  4009fc:	f2aa8160 	movk	x0, #0x540b, lsl #16
+  400a00:	f2c00040 	movk	x0, #0x2, lsl #32
+  400a04:	eb00003f 	subs	xzr, x1, x0
+  400a08:	54fffe8d 	b.le	4009d8 <_Z22benchmark_inline_asm_1PKfS0_+0x14>
+				"r"(&i_b[0])									//input registers linked to variables "f" = floating point register, "r" = register
+			:   "v4", "v3", "v2", "v1"	
+																//clobbers = all used SIMD registers and memory (pointed to by input registers)
+		);
+	}
+	return;
+  400a0c:	d503201f 	hint	#0x0
+}
+  400a10:	910083ff 	add	sp, sp, #0x20
+  400a14:	d65f03c0 	ret
+
+0000000000400a18 <_Z22benchmark_inline_asm_2PKfS0_>:
+
+void benchmark_inline_asm_2( float const * i_a,
+             				 float const * i_b ){
+  400a18:	d10043ff 	sub	sp, sp, #0x10
+  400a1c:	f90007e0 	str	x0, [sp, #8]
+  400a20:	f90003e1 	str	x1, [sp]
+	asm (      
+  400a24:	d503201f 	hint	#0x0
+		"nop;"
+		: 								//output registers 
+		: 								//input registers 
+		:  								//clobbers = all used/ dirty SIMD registers and memory (pointed to by input registers)
+	);
+	return;
+  400a28:	d503201f 	hint	#0x0
+}
+  400a2c:	910043ff 	add	sp, sp, #0x10
+  400a30:	d65f03c0 	ret
+
+0000000000400a34 <main>:
+
+
+
+int main() {
+  400a34:	a9b57bfd 	stp	x29, x30, [sp, #-176]!
+  400a38:	910003fd 	add	x29, sp, #0x0
+  400a3c:	f9000bf3 	str	x19, [sp, #16]
+  float l_a[4] = { 1.0f, 1.0f, 1.0f, 1.0f};
+  400a40:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  400a44:	bd006bff 	str	s31, [sp, #104]
+  400a48:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  400a4c:	bd006fff 	str	s31, [sp, #108]
+  400a50:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  400a54:	bd0073ff 	str	s31, [sp, #112]
+  400a58:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  400a5c:	bd0077ff 	str	s31, [sp, #116]
+  float l_b[4] = { 1.0f, 1.0f, 1.0f, 1.0f};
+  400a60:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  400a64:	bd005bff 	str	s31, [sp, #88]
+  400a68:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  400a6c:	bd005fff 	str	s31, [sp, #92]
+  400a70:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  400a74:	bd0063ff 	str	s31, [sp, #96]
+  400a78:	1e2e101f 	fmov	s31, #1.000000000000000000e+00
+  400a7c:	bd0067ff 	str	s31, [sp, #100]
+  std::chrono::steady_clock::time_point start, stop;
+  400a80:	f9002bff 	str	xzr, [sp, #80]
+  400a84:	f90027ff 	str	xzr, [sp, #72]
+  std::chrono::duration<double> duration1, duration2, duration3, duration4, duration5;
+  double FLOPS = 0;
+  400a88:	f90057ff 	str	xzr, [sp, #168]
+  long repetitions = 10000000000;
+  400a8c:	d29c8000 	movz	x0, #0xe400
+  400a90:	f2aa8160 	movk	x0, #0x540b, lsl #16
+  400a94:	f2c00040 	movk	x0, #0x2, lsl #32
+  400a98:	f90053e0 	str	x0, [sp, #160]
+
+  // benchmark_c
+  std::cout << "### calling benchmark_c ###" << std::endl;
+  400a9c:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400aa0:	91066001 	add	x1, x0, #0x198
+  400aa4:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400aa8:	91020000 	add	x0, x0, #0x80
+  400aac:	97ffff6d 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400ab0:	aa0003e2 	orr	x2, xzr, x0
+  400ab4:	90000000 	adrp	x0, 400000 <_init-0x808>
+  400ab8:	91210001 	add	x1, x0, #0x840
+  400abc:	aa0203e0 	orr	x0, xzr, x2
+  400ac0:	97ffff6c 	bl	400870 <_ZNSolsEPFRSoS_E@plt>
+  start = std::chrono::steady_clock::now();
+  400ac4:	97ffff6f 	bl	400880 <_ZNSt6chrono3_V212steady_clock3nowEv@plt>
+  400ac8:	f9002be0 	str	x0, [sp, #80]
+  benchmark_c( l_a, l_b );
+  400acc:	910163e1 	add	x1, sp, #0x58
+  400ad0:	9101a3e0 	add	x0, sp, #0x68
+  400ad4:	94000171 	bl	401098 <benchmark_c>
+  stop = std::chrono::steady_clock::now();
+  400ad8:	97ffff6a 	bl	400880 <_ZNSt6chrono3_V212steady_clock3nowEv@plt>
+  400adc:	f90027e0 	str	x0, [sp, #72]
+  duration1 = std::chrono::duration_cast< std::chrono::duration< double> >( stop - start );
+  400ae0:	910143e1 	add	x1, sp, #0x50
+  400ae4:	910123e0 	add	x0, sp, #0x48
+  400ae8:	940000ec 	bl	400e98 <_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE>
+  400aec:	f9003fe0 	str	x0, [sp, #120]
+  400af0:	9101e3e0 	add	x0, sp, #0x78
+  400af4:	940000f8 	bl	400ed4 <_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE>
+  400af8:	1e60401f 	fmov	d31, d0
+  400afc:	fd0023ff 	str	d31, [sp, #64]
+
+  // benchmark_asm_1
+  std::cout << "### calling benchmark_asm_1 ###" << std::endl;
+  400b00:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400b04:	9106e001 	add	x1, x0, #0x1b8
+  400b08:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400b0c:	91020000 	add	x0, x0, #0x80
+  400b10:	97ffff54 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400b14:	aa0003e2 	orr	x2, xzr, x0
+  400b18:	90000000 	adrp	x0, 400000 <_init-0x808>
+  400b1c:	91210001 	add	x1, x0, #0x840
+  400b20:	aa0203e0 	orr	x0, xzr, x2
+  400b24:	97ffff53 	bl	400870 <_ZNSolsEPFRSoS_E@plt>
+  start = std::chrono::steady_clock::now();
+  400b28:	97ffff56 	bl	400880 <_ZNSt6chrono3_V212steady_clock3nowEv@plt>
+  400b2c:	f9002be0 	str	x0, [sp, #80]
+  benchmark_asm_1( l_a, l_b );
+  400b30:	910163e1 	add	x1, sp, #0x58
+  400b34:	9101a3e0 	add	x0, sp, #0x68
+  400b38:	94000136 	bl	401010 <benchmark_asm_1>
+  stop = std::chrono::steady_clock::now();
+  400b3c:	97ffff51 	bl	400880 <_ZNSt6chrono3_V212steady_clock3nowEv@plt>
+  400b40:	f90027e0 	str	x0, [sp, #72]
+  duration2 = std::chrono::duration_cast< std::chrono::duration< double> >( stop - start );
+  400b44:	910143e1 	add	x1, sp, #0x50
+  400b48:	910123e0 	add	x0, sp, #0x48
+  400b4c:	940000d3 	bl	400e98 <_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE>
+  400b50:	f90043e0 	str	x0, [sp, #128]
+  400b54:	910203e0 	add	x0, sp, #0x80
+  400b58:	940000df 	bl	400ed4 <_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE>
+  400b5c:	1e60401f 	fmov	d31, d0
+  400b60:	fd001fff 	str	d31, [sp, #56]
+
+  // benchmark_asm_2
+  std::cout << "### calling benchmark_asm_2 ###" << std::endl;
+  400b64:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400b68:	91076001 	add	x1, x0, #0x1d8
+  400b6c:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400b70:	91020000 	add	x0, x0, #0x80
+  400b74:	97ffff3b 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400b78:	aa0003e2 	orr	x2, xzr, x0
+  400b7c:	90000000 	adrp	x0, 400000 <_init-0x808>
+  400b80:	91210001 	add	x1, x0, #0x840
+  400b84:	aa0203e0 	orr	x0, xzr, x2
+  400b88:	97ffff3a 	bl	400870 <_ZNSolsEPFRSoS_E@plt>
+  start = std::chrono::steady_clock::now();
+  400b8c:	97ffff3d 	bl	400880 <_ZNSt6chrono3_V212steady_clock3nowEv@plt>
+  400b90:	f9002be0 	str	x0, [sp, #80]
+  benchmark_asm_2( l_a, l_b );
+  400b94:	910163e1 	add	x1, sp, #0x58
+  400b98:	9101a3e0 	add	x0, sp, #0x68
+  400b9c:	94000129 	bl	401040 <benchmark_asm_2>
+  stop = std::chrono::steady_clock::now();
+  400ba0:	97ffff38 	bl	400880 <_ZNSt6chrono3_V212steady_clock3nowEv@plt>
+  400ba4:	f90027e0 	str	x0, [sp, #72]
+  duration3 = std::chrono::duration_cast< std::chrono::duration< double> >( stop - start );  
+  400ba8:	910143e1 	add	x1, sp, #0x50
+  400bac:	910123e0 	add	x0, sp, #0x48
+  400bb0:	940000ba 	bl	400e98 <_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE>
+  400bb4:	f90047e0 	str	x0, [sp, #136]
+  400bb8:	910223e0 	add	x0, sp, #0x88
+  400bbc:	940000c6 	bl	400ed4 <_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE>
+  400bc0:	1e60401f 	fmov	d31, d0
+  400bc4:	fd001bff 	str	d31, [sp, #48]
+
+  // benchmark_inline_asm_1
+  std::cout << "### calling benchmark_inline_asm ###" << std::endl;
+  400bc8:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400bcc:	9107e001 	add	x1, x0, #0x1f8
+  400bd0:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400bd4:	91020000 	add	x0, x0, #0x80
+  400bd8:	97ffff22 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400bdc:	aa0003e2 	orr	x2, xzr, x0
+  400be0:	90000000 	adrp	x0, 400000 <_init-0x808>
+  400be4:	91210001 	add	x1, x0, #0x840
+  400be8:	aa0203e0 	orr	x0, xzr, x2
+  400bec:	97ffff21 	bl	400870 <_ZNSolsEPFRSoS_E@plt>
+  start = std::chrono::steady_clock::now();
+  400bf0:	97ffff24 	bl	400880 <_ZNSt6chrono3_V212steady_clock3nowEv@plt>
+  400bf4:	f9002be0 	str	x0, [sp, #80]
+  benchmark_inline_asm_1( l_a, l_b );
+  400bf8:	910163e1 	add	x1, sp, #0x58
+  400bfc:	9101a3e0 	add	x0, sp, #0x68
+  400c00:	97ffff71 	bl	4009c4 <_Z22benchmark_inline_asm_1PKfS0_>
+  stop = std::chrono::steady_clock::now();
+  400c04:	97ffff1f 	bl	400880 <_ZNSt6chrono3_V212steady_clock3nowEv@plt>
+  400c08:	f90027e0 	str	x0, [sp, #72]
+  duration4 = std::chrono::duration_cast< std::chrono::duration< double> >( stop - start );  
+  400c0c:	910143e1 	add	x1, sp, #0x50
+  400c10:	910123e0 	add	x0, sp, #0x48
+  400c14:	940000a1 	bl	400e98 <_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE>
+  400c18:	f9004be0 	str	x0, [sp, #144]
+  400c1c:	910243e0 	add	x0, sp, #0x90
+  400c20:	940000ad 	bl	400ed4 <_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE>
+  400c24:	1e60401f 	fmov	d31, d0
+  400c28:	fd0017ff 	str	d31, [sp, #40]
+
+  // benchmark_inline_asm_2
+  std::cout << "### calling benchmark_inline_asm ###" << std::endl;
+  400c2c:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400c30:	9107e001 	add	x1, x0, #0x1f8
+  400c34:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400c38:	91020000 	add	x0, x0, #0x80
+  400c3c:	97ffff09 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400c40:	aa0003e2 	orr	x2, xzr, x0
+  400c44:	90000000 	adrp	x0, 400000 <_init-0x808>
+  400c48:	91210001 	add	x1, x0, #0x840
+  400c4c:	aa0203e0 	orr	x0, xzr, x2
+  400c50:	97ffff08 	bl	400870 <_ZNSolsEPFRSoS_E@plt>
+  start = std::chrono::steady_clock::now();
+  400c54:	97ffff0b 	bl	400880 <_ZNSt6chrono3_V212steady_clock3nowEv@plt>
+  400c58:	f9002be0 	str	x0, [sp, #80]
+  benchmark_inline_asm_2( l_a, l_b );
+  400c5c:	910163e1 	add	x1, sp, #0x58
+  400c60:	9101a3e0 	add	x0, sp, #0x68
+  400c64:	97ffff6d 	bl	400a18 <_Z22benchmark_inline_asm_2PKfS0_>
+  stop = std::chrono::steady_clock::now();
+  400c68:	97ffff06 	bl	400880 <_ZNSt6chrono3_V212steady_clock3nowEv@plt>
+  400c6c:	f90027e0 	str	x0, [sp, #72]
+  duration5 = std::chrono::duration_cast< std::chrono::duration< double> >( stop - start );  
+  400c70:	910143e1 	add	x1, sp, #0x50
+  400c74:	910123e0 	add	x0, sp, #0x48
+  400c78:	94000088 	bl	400e98 <_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE>
+  400c7c:	f9004fe0 	str	x0, [sp, #152]
+  400c80:	910263e0 	add	x0, sp, #0x98
+  400c84:	94000094 	bl	400ed4 <_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE>
+  400c88:	1e60401f 	fmov	d31, d0
+  400c8c:	fd0013ff 	str	d31, [sp, #32]
+
+  std::cout << "Duration C: " << duration1.count() << " seconds" << std::endl;
+  400c90:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400c94:	91088001 	add	x1, x0, #0x220
+  400c98:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400c9c:	91020000 	add	x0, x0, #0x80
+  400ca0:	97fffef0 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400ca4:	aa0003f3 	orr	x19, xzr, x0
+  400ca8:	910103e0 	add	x0, sp, #0x40
+  400cac:	94000095 	bl	400f00 <_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv>
+  400cb0:	1e60401f 	fmov	d31, d0
+  400cb4:	1e6043e0 	fmov	d0, d31
+  400cb8:	aa1303e0 	orr	x0, xzr, x19
+  400cbc:	97fffefd 	bl	4008b0 <_ZNSolsEd@plt>
+  400cc0:	aa0003e2 	orr	x2, xzr, x0
+  400cc4:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400cc8:	9108c001 	add	x1, x0, #0x230
+  400ccc:	aa0203e0 	orr	x0, xzr, x2
+  400cd0:	97fffee4 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400cd4:	aa0003e2 	orr	x2, xzr, x0
+  400cd8:	90000000 	adrp	x0, 400000 <_init-0x808>
+  400cdc:	91210001 	add	x1, x0, #0x840
+  400ce0:	aa0203e0 	orr	x0, xzr, x2
+  400ce4:	97fffee3 	bl	400870 <_ZNSolsEPFRSoS_E@plt>
+  std::cout << "Duration ASM SIMD: " << duration2.count() << " seconds" << std::endl;
+  400ce8:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400cec:	91090001 	add	x1, x0, #0x240
+  400cf0:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400cf4:	91020000 	add	x0, x0, #0x80
+  400cf8:	97fffeda 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400cfc:	aa0003f3 	orr	x19, xzr, x0
+  400d00:	9100e3e0 	add	x0, sp, #0x38
+  400d04:	9400007f 	bl	400f00 <_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv>
+  400d08:	1e60401f 	fmov	d31, d0
+  400d0c:	1e6043e0 	fmov	d0, d31
+  400d10:	aa1303e0 	orr	x0, xzr, x19
+  400d14:	97fffee7 	bl	4008b0 <_ZNSolsEd@plt>
+  400d18:	aa0003e2 	orr	x2, xzr, x0
+  400d1c:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400d20:	9108c001 	add	x1, x0, #0x230
+  400d24:	aa0203e0 	orr	x0, xzr, x2
+  400d28:	97fffece 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400d2c:	aa0003e2 	orr	x2, xzr, x0
+  400d30:	90000000 	adrp	x0, 400000 <_init-0x808>
+  400d34:	91210001 	add	x1, x0, #0x840
+  400d38:	aa0203e0 	orr	x0, xzr, x2
+  400d3c:	97fffecd 	bl	400870 <_ZNSolsEPFRSoS_E@plt>
+  std::cout << "Duration ASM No SIMD: " << duration3.count() << " seconds" << std::endl;
+  400d40:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400d44:	91096001 	add	x1, x0, #0x258
+  400d48:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400d4c:	91020000 	add	x0, x0, #0x80
+  400d50:	97fffec4 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400d54:	aa0003f3 	orr	x19, xzr, x0
+  400d58:	9100c3e0 	add	x0, sp, #0x30
+  400d5c:	94000069 	bl	400f00 <_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv>
+  400d60:	1e60401f 	fmov	d31, d0
+  400d64:	1e6043e0 	fmov	d0, d31
+  400d68:	aa1303e0 	orr	x0, xzr, x19
+  400d6c:	97fffed1 	bl	4008b0 <_ZNSolsEd@plt>
+  400d70:	aa0003e2 	orr	x2, xzr, x0
+  400d74:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400d78:	9108c001 	add	x1, x0, #0x230
+  400d7c:	aa0203e0 	orr	x0, xzr, x2
+  400d80:	97fffeb8 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400d84:	aa0003e2 	orr	x2, xzr, x0
+  400d88:	90000000 	adrp	x0, 400000 <_init-0x808>
+  400d8c:	91210001 	add	x1, x0, #0x840
+  400d90:	aa0203e0 	orr	x0, xzr, x2
+  400d94:	97fffeb7 	bl	400870 <_ZNSolsEPFRSoS_E@plt>
+  std::cout << "Duration Inline ASM SIMD (Q-Form): " << duration4.count() << " seconds" << std::endl;
+  400d98:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400d9c:	9109c001 	add	x1, x0, #0x270
+  400da0:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400da4:	91020000 	add	x0, x0, #0x80
+  400da8:	97fffeae 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400dac:	aa0003f3 	orr	x19, xzr, x0
+  400db0:	9100a3e0 	add	x0, sp, #0x28
+  400db4:	94000053 	bl	400f00 <_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv>
+  400db8:	1e60401f 	fmov	d31, d0
+  400dbc:	1e6043e0 	fmov	d0, d31
+  400dc0:	aa1303e0 	orr	x0, xzr, x19
+  400dc4:	97fffebb 	bl	4008b0 <_ZNSolsEd@plt>
+  400dc8:	aa0003e2 	orr	x2, xzr, x0
+  400dcc:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400dd0:	9108c001 	add	x1, x0, #0x230
+  400dd4:	aa0203e0 	orr	x0, xzr, x2
+  400dd8:	97fffea2 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400ddc:	aa0003e2 	orr	x2, xzr, x0
+  400de0:	90000000 	adrp	x0, 400000 <_init-0x808>
+  400de4:	91210001 	add	x1, x0, #0x840
+  400de8:	aa0203e0 	orr	x0, xzr, x2
+  400dec:	97fffea1 	bl	400870 <_ZNSolsEPFRSoS_E@plt>
+  std::cout << "Duration Inline ASM SIMD (D-Form): " << duration5.count() << " seconds" << std::endl;
+  400df0:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400df4:	910a6001 	add	x1, x0, #0x298
+  400df8:	90000100 	adrp	x0, 420000 <_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GLIBCXX_3.4>
+  400dfc:	91020000 	add	x0, x0, #0x80
+  400e00:	97fffe98 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400e04:	aa0003f3 	orr	x19, xzr, x0
+  400e08:	910083e0 	add	x0, sp, #0x20
+  400e0c:	9400003d 	bl	400f00 <_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv>
+  400e10:	1e60401f 	fmov	d31, d0
+  400e14:	1e6043e0 	fmov	d0, d31
+  400e18:	aa1303e0 	orr	x0, xzr, x19
+  400e1c:	97fffea5 	bl	4008b0 <_ZNSolsEd@plt>
+  400e20:	aa0003e2 	orr	x2, xzr, x0
+  400e24:	b0000000 	adrp	x0, 401000 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_+0x18>
+  400e28:	9108c001 	add	x1, x0, #0x230
+  400e2c:	aa0203e0 	orr	x0, xzr, x2
+  400e30:	97fffe8c 	bl	400860 <_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@plt>
+  400e34:	aa0003e2 	orr	x2, xzr, x0
+  400e38:	90000000 	adrp	x0, 400000 <_init-0x808>
+  400e3c:	91210001 	add	x1, x0, #0x840
+  400e40:	aa0203e0 	orr	x0, xzr, x2
+  400e44:	97fffe8b 	bl	400870 <_ZNSolsEPFRSoS_E@plt>
+
+  return EXIT_SUCCESS;
+  400e48:	52800000 	movz	w0, #0x0
+}
+  400e4c:	f9400bf3 	ldr	x19, [sp, #16]
+  400e50:	a8cb7bfd 	ldp	x29, x30, [sp], #176
+  400e54:	d65f03c0 	ret
+
+0000000000400e58 <_ZNSt6chrono8durationIlSt5ratioILl1ELl1000000000EEEC1IlvEERKT_>:
+	// _GLIBCXX_RESOLVE_LIB_DEFECTS
+	// 3050. Conversion specification problem in chrono::duration
+	template<typename _Rep2, typename = _Require<
+		 is_convertible<const _Rep2&, rep>,
+		 __or_<__is_float<rep>, __not_<__is_float<_Rep2>>>>>
+	  constexpr explicit duration(const _Rep2& __rep)
+  400e58:	d10043ff 	sub	sp, sp, #0x10
+  400e5c:	f90007e0 	str	x0, [sp, #8]
+  400e60:	f90003e1 	str	x1, [sp]
+	  : __r(static_cast<rep>(__rep)) { }
+  400e64:	f94003e0 	ldr	x0, [sp]
+  400e68:	f9400001 	ldr	x1, [x0]
+  400e6c:	f94007e0 	ldr	x0, [sp, #8]
+  400e70:	f9000001 	str	x1, [x0]
+  400e74:	d503201f 	hint	#0x0
+  400e78:	910043ff 	add	sp, sp, #0x10
+  400e7c:	d65f03c0 	ret
+
+0000000000400e80 <_ZNKSt6chrono8durationIlSt5ratioILl1ELl1000000000EEE5countEv>:
+	~duration() = default;
+	duration& operator=(const duration&) = default;
+
+	// 20.11.5.2 observer
+	constexpr rep
+	count() const
+  400e80:	d10043ff 	sub	sp, sp, #0x10
+  400e84:	f90007e0 	str	x0, [sp, #8]
+	{ return __r; }
+  400e88:	f94007e0 	ldr	x0, [sp, #8]
+  400e8c:	f9400000 	ldr	x0, [x0]
+  400e90:	910043ff 	add	sp, sp, #0x10
+  400e94:	d65f03c0 	ret
+
+0000000000400e98 <_ZNSt6chronomiINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEES6_EENSt11common_typeIJT0_T1_EE4typeERKNS_10time_pointIT_S8_EERKNSC_ISD_S9_EE>:
+      }
+
+    /// The difference between two time points (as a duration)
+    template<typename _Clock, typename _Dur1, typename _Dur2>
+      constexpr typename common_type<_Dur1, _Dur2>::type
+      operator-(const time_point<_Clock, _Dur1>& __lhs,
+  400e98:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+  400e9c:	910003fd 	add	x29, sp, #0x0
+  400ea0:	f9000fe0 	str	x0, [sp, #24]
+  400ea4:	f9000be1 	str	x1, [sp, #16]
+		const time_point<_Clock, _Dur2>& __rhs)
+      { return __lhs.time_since_epoch() - __rhs.time_since_epoch(); }
+  400ea8:	f9400fe0 	ldr	x0, [sp, #24]
+  400eac:	9400001c 	bl	400f1c <_ZNKSt6chrono10time_pointINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEEE16time_since_epochEv>
+  400eb0:	f90013e0 	str	x0, [sp, #32]
+  400eb4:	f9400be0 	ldr	x0, [sp, #16]
+  400eb8:	94000019 	bl	400f1c <_ZNKSt6chrono10time_pointINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEEE16time_since_epochEv>
+  400ebc:	f90017e0 	str	x0, [sp, #40]
+  400ec0:	9100a3e1 	add	x1, sp, #0x28
+  400ec4:	910083e0 	add	x0, sp, #0x20
+  400ec8:	9400001b 	bl	400f34 <_ZNSt6chronomiIlSt5ratioILl1ELl1000000000EElS2_EENSt11common_typeIJNS_8durationIT_T0_EENS4_IT1_T2_EEEE4typeERKS7_RKSA_>
+  400ecc:	a8c37bfd 	ldp	x29, x30, [sp], #48
+  400ed0:	d65f03c0 	ret
+
+0000000000400ed4 <_ZNSt6chrono13duration_castINS_8durationIdSt5ratioILl1ELl1EEEElS2_ILl1ELl1000000000EEEENSt9enable_ifIXsrNS_13__is_durationIT_EE5valueES8_E4typeERKNS1_IT0_T1_EE>:
+      duration_cast(const duration<_Rep, _Period>& __d)
+  400ed4:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+  400ed8:	910003fd 	add	x29, sp, #0x0
+  400edc:	f9000fe0 	str	x0, [sp, #24]
+	  return __dc::__cast(__d);
+  400ee0:	f9400fe0 	ldr	x0, [sp, #24]
+  400ee4:	9400002d 	bl	400f98 <_ZNSt6chrono20__duration_cast_implINS_8durationIdSt5ratioILl1ELl1EEEES2_ILl1ELl1000000000EEdLb1ELb0EE6__castIlS5_EES4_RKNS1_IT_T0_EE>
+  400ee8:	1e60401f 	fmov	d31, d0
+  400eec:	9e6603e0 	fmov	x0, d31
+  400ef0:	9e67001f 	fmov	d31, x0
+      }
+  400ef4:	1e6043e0 	fmov	d0, d31
+  400ef8:	a8c27bfd 	ldp	x29, x30, [sp], #32
+  400efc:	d65f03c0 	ret
+
+0000000000400f00 <_ZNKSt6chrono8durationIdSt5ratioILl1ELl1EEE5countEv>:
+	count() const
+  400f00:	d10043ff 	sub	sp, sp, #0x10
+  400f04:	f90007e0 	str	x0, [sp, #8]
+	{ return __r; }
+  400f08:	f94007e0 	ldr	x0, [sp, #8]
+  400f0c:	fd40001f 	ldr	d31, [x0]
+  400f10:	1e6043e0 	fmov	d0, d31
+  400f14:	910043ff 	add	sp, sp, #0x10
+  400f18:	d65f03c0 	ret
+
+0000000000400f1c <_ZNKSt6chrono10time_pointINS_3_V212steady_clockENS_8durationIlSt5ratioILl1ELl1000000000EEEEE16time_since_epochEv>:
+	time_since_epoch() const
+  400f1c:	d10043ff 	sub	sp, sp, #0x10
+  400f20:	f90007e0 	str	x0, [sp, #8]
+	{ return __d; }
+  400f24:	f94007e0 	ldr	x0, [sp, #8]
+  400f28:	f9400000 	ldr	x0, [x0]
+  400f2c:	910043ff 	add	sp, sp, #0x10
+  400f30:	d65f03c0 	ret
+
+0000000000400f34 <_ZNSt6chronomiIlSt5ratioILl1ELl1000000000EElS2_EENSt11common_typeIJNS_8durationIT_T0_EENS4_IT1_T2_EEEE4typeERKS7_RKSA_>:
+      operator-(const duration<_Rep1, _Period1>& __lhs,
+  400f34:	a9bb7bfd 	stp	x29, x30, [sp, #-80]!
+  400f38:	910003fd 	add	x29, sp, #0x0
+  400f3c:	f9000bf3 	str	x19, [sp, #16]
+  400f40:	f90017e0 	str	x0, [sp, #40]
+  400f44:	f90013e1 	str	x1, [sp, #32]
+	return __cd(__cd(__lhs).count() - __cd(__rhs).count());
+  400f48:	f94017e0 	ldr	x0, [sp, #40]
+  400f4c:	f9400000 	ldr	x0, [x0]
+  400f50:	f90023e0 	str	x0, [sp, #64]
+  400f54:	910103e0 	add	x0, sp, #0x40
+  400f58:	97ffffca 	bl	400e80 <_ZNKSt6chrono8durationIlSt5ratioILl1ELl1000000000EEE5countEv>
+  400f5c:	aa0003f3 	orr	x19, xzr, x0
+  400f60:	f94013e0 	ldr	x0, [sp, #32]
+  400f64:	f9400000 	ldr	x0, [x0]
+  400f68:	f90027e0 	str	x0, [sp, #72]
+  400f6c:	910123e0 	add	x0, sp, #0x48
+  400f70:	97ffffc4 	bl	400e80 <_ZNKSt6chrono8durationIlSt5ratioILl1ELl1000000000EEE5countEv>
+  400f74:	cb000260 	sub	x0, x19, x0
+  400f78:	f9001fe0 	str	x0, [sp, #56]
+  400f7c:	9100e3e1 	add	x1, sp, #0x38
+  400f80:	9100c3e0 	add	x0, sp, #0x30
+  400f84:	97ffffb5 	bl	400e58 <_ZNSt6chrono8durationIlSt5ratioILl1ELl1000000000EEEC1IlvEERKT_>
+  400f88:	f9401be0 	ldr	x0, [sp, #48]
+      }
+  400f8c:	f9400bf3 	ldr	x19, [sp, #16]
+  400f90:	a8c57bfd 	ldp	x29, x30, [sp], #80
+  400f94:	d65f03c0 	ret
+
+0000000000400f98 <_ZNSt6chrono20__duration_cast_implINS_8durationIdSt5ratioILl1ELl1EEEES2_ILl1ELl1000000000EEdLb1ELb0EE6__castIlS5_EES4_RKNS1_IT_T0_EE>:
+	  __cast(const duration<_Rep, _Period>& __d)
+  400f98:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+  400f9c:	910003fd 	add	x29, sp, #0x0
+  400fa0:	f9000fe0 	str	x0, [sp, #24]
+	      static_cast<_CR>(__d.count()) / static_cast<_CR>(_CF::den)));
+  400fa4:	f9400fe0 	ldr	x0, [sp, #24]
+  400fa8:	97ffffb6 	bl	400e80 <_ZNKSt6chrono8durationIlSt5ratioILl1ELl1000000000EEE5countEv>
+  400fac:	9e62001f 	scvtf	d31, x0
+  400fb0:	d2d9aca0 	movz	x0, #0xcd65, lsl #32
+  400fb4:	f2e839a0 	movk	x0, #0x41cd, lsl #48
+  400fb8:	9e67001e 	fmov	d30, x0
+  400fbc:	1e7e1bff 	fdiv	d31, d31, d30
+	    return _ToDur(static_cast<__to_rep>(
+  400fc0:	fd0017ff 	str	d31, [sp, #40]
+  400fc4:	9100a3e1 	add	x1, sp, #0x28
+  400fc8:	910083e0 	add	x0, sp, #0x20
+  400fcc:	94000007 	bl	400fe8 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_>
+	      static_cast<_CR>(__d.count()) / static_cast<_CR>(_CF::den)));
+  400fd0:	fd4013ff 	ldr	d31, [sp, #32]
+  400fd4:	9e6603e0 	fmov	x0, d31
+  400fd8:	9e67001f 	fmov	d31, x0
+	  }
+  400fdc:	1e6043e0 	fmov	d0, d31
+  400fe0:	a8c37bfd 	ldp	x29, x30, [sp], #48
+  400fe4:	d65f03c0 	ret
+
+0000000000400fe8 <_ZNSt6chrono8durationIdSt5ratioILl1ELl1EEEC1IdvEERKT_>:
+	  constexpr explicit duration(const _Rep2& __rep)
+  400fe8:	d10043ff 	sub	sp, sp, #0x10
+  400fec:	f90007e0 	str	x0, [sp, #8]
+  400ff0:	f90003e1 	str	x1, [sp]
+	  : __r(static_cast<rep>(__rep)) { }
+  400ff4:	f94003e0 	ldr	x0, [sp]
+  400ff8:	fd40001f 	ldr	d31, [x0]
+  400ffc:	f94007e0 	ldr	x0, [sp, #8]
+  401000:	fd00001f 	str	d31, [x0]
+  401004:	d503201f 	hint	#0x0
+  401008:	910043ff 	add	sp, sp, #0x10
+  40100c:	d65f03c0 	ret
+
+0000000000401010 <benchmark_asm_1>:
+  401010:	58000104 	ldr	x4, 401030 <finish+0x4>
+  401014:	4c407822 	ld1	{v2.4s}, [x1]
+  401018:	4c407801 	ld1	{v1.4s}, [x0]
+
+000000000040101c <while>:
+  40101c:	eb1f009f 	subs	xzr, x4, xzr
+  401020:	54000060 	b.eq	40102c <finish>  // b.none
+  401024:	d1001084 	sub	x4, x4, #0x4
+  401028:	17fffffd 	b	40101c <while>
+
+000000000040102c <finish>:
+  40102c:	d65f03c0 	ret
+  401030:	540be400 	.word	0x540be400
+  401034:	00000002 	.word	0x00000002
+  401038:	d503201f 	.word	0xd503201f
+  40103c:	d503201f 	.word	0xd503201f
+
+0000000000401040 <benchmark_asm_2>:
+  401040:	58000284 	ldr	x4, 401090 <finish+0xc>
+  401044:	bd400022 	ldr	s2, [x1]
+  401048:	bd400001 	ldr	s1, [x0]
+  40104c:	bd400424 	ldr	s4, [x1, #4]
+  401050:	bd400403 	ldr	s3, [x0, #4]
+  401054:	bd400826 	ldr	s6, [x1, #8]
+  401058:	bd400805 	ldr	s5, [x0, #8]
+  40105c:	bd400c28 	ldr	s8, [x1, #12]
+  401060:	bd400c07 	ldr	s7, [x0, #12]
+
+0000000000401064 <while>:
+  401064:	eb1f009f 	subs	xzr, x4, xzr
+  401068:	540000e0 	b.eq	401084 <finish>  // b.none
+  40106c:	1f022429 	fmadd	s9, s1, s2, s9
+  401070:	1f04286a 	fmadd	s10, s3, s4, s10
+  401074:	1f062cab 	fmadd	s11, s5, s6, s11
+  401078:	1f0830ec 	fmadd	s12, s7, s8, s12
+  40107c:	d1001084 	sub	x4, x4, #0x4
+  401080:	17fffff9 	b	401064 <while>
+
+0000000000401084 <finish>:
+  401084:	d65f03c0 	ret
+  401088:	d65f03c0 	ret
+  40108c:	00000000 	udf	#0
+  401090:	540be400 	.word	0x540be400
+  401094:	00000002 	.word	0x00000002
+
+0000000000401098 <benchmark_c>:
+#include <stdint.h>
+
+void benchmark_c( 	float const *i_a,
+             		float const *i_b ) {
+  401098:	d100c3ff 	sub	sp, sp, #0x30
+  40109c:	f90007e0 	str	x0, [sp, #8]
+  4010a0:	f90003e1 	str	x1, [sp]
+
+	long repeat = 10000000000;	
+  4010a4:	d29c8000 	movz	x0, #0xe400
+  4010a8:	f2aa8160 	movk	x0, #0x540b, lsl #16
+  4010ac:	f2c00040 	movk	x0, #0x2, lsl #32
+  4010b0:	f90017e0 	str	x0, [sp, #40]
+	float res[4];
+
+	while(repeat){
+  4010b4:	1400002a 	b	40115c <benchmark_c+0xc4>
+
+		res[0] = i_a[0] * i_b[0] + res[0];
+  4010b8:	f94007e0 	ldr	x0, [sp, #8]
+  4010bc:	bd40001e 	ldr	s30, [x0]
+  4010c0:	f94003e0 	ldr	x0, [sp]
+  4010c4:	bd40001f 	ldr	s31, [x0]
+  4010c8:	1e3f0bde 	fmul	s30, s30, s31
+  4010cc:	bd401bff 	ldr	s31, [sp, #24]
+  4010d0:	1e3f2bdf 	fadd	s31, s30, s31
+  4010d4:	bd001bff 	str	s31, [sp, #24]
+		res[1] = i_a[1] * i_b[1] + res[1];
+  4010d8:	f94007e0 	ldr	x0, [sp, #8]
+  4010dc:	91001000 	add	x0, x0, #0x4
+  4010e0:	bd40001e 	ldr	s30, [x0]
+  4010e4:	f94003e0 	ldr	x0, [sp]
+  4010e8:	91001000 	add	x0, x0, #0x4
+  4010ec:	bd40001f 	ldr	s31, [x0]
+  4010f0:	1e3f0bde 	fmul	s30, s30, s31
+  4010f4:	bd401fff 	ldr	s31, [sp, #28]
+  4010f8:	1e3f2bdf 	fadd	s31, s30, s31
+  4010fc:	bd001fff 	str	s31, [sp, #28]
+		res[2] = i_a[2] * i_b[2] + res[2];
+  401100:	f94007e0 	ldr	x0, [sp, #8]
+  401104:	91002000 	add	x0, x0, #0x8
+  401108:	bd40001e 	ldr	s30, [x0]
+  40110c:	f94003e0 	ldr	x0, [sp]
+  401110:	91002000 	add	x0, x0, #0x8
+  401114:	bd40001f 	ldr	s31, [x0]
+  401118:	1e3f0bde 	fmul	s30, s30, s31
+  40111c:	bd4023ff 	ldr	s31, [sp, #32]
+  401120:	1e3f2bdf 	fadd	s31, s30, s31
+  401124:	bd0023ff 	str	s31, [sp, #32]
+		res[3] = i_a[3] * i_b[3] + res[3];
+  401128:	f94007e0 	ldr	x0, [sp, #8]
+  40112c:	91003000 	add	x0, x0, #0xc
+  401130:	bd40001e 	ldr	s30, [x0]
+  401134:	f94003e0 	ldr	x0, [sp]
+  401138:	91003000 	add	x0, x0, #0xc
+  40113c:	bd40001f 	ldr	s31, [x0]
+  401140:	1e3f0bde 	fmul	s30, s30, s31
+  401144:	bd4027ff 	ldr	s31, [sp, #36]
+  401148:	1e3f2bdf 	fadd	s31, s30, s31
+  40114c:	bd0027ff 	str	s31, [sp, #36]
+
+		repeat-=4;
+  401150:	f94017e0 	ldr	x0, [sp, #40]
+  401154:	d1001000 	sub	x0, x0, #0x4
+  401158:	f90017e0 	str	x0, [sp, #40]
+	while(repeat){
+  40115c:	f94017e0 	ldr	x0, [sp, #40]
+  401160:	f100001f 	subs	xzr, x0, #0x0
+  401164:	54fffaa1 	b.ne	4010b8 <benchmark_c+0x20>  // b.any
+
+	}
+}
+  401168:	d503201f 	hint	#0x0
+  40116c:	d503201f 	hint	#0x0
+  401170:	9100c3ff 	add	sp, sp, #0x30
+  401174:	d65f03c0 	ret
+
+Disassembly of section .fini:
+
+0000000000401178 <_fini>:
+  401178:	d503201f 	hint	#0x0
+  40117c:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+  401180:	910003fd 	add	x29, sp, #0x0
+  401184:	a8c17bfd 	ldp	x29, x30, [sp], #16
+  401188:	d65f03c0 	ret
