@@ -8,6 +8,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <time.h>
 
 // -------- Vec3 --------
 struct Vec3
@@ -94,10 +95,32 @@ struct Scene
     {
         objects.insert(objects.end(), objs.begin(), objs.end());
     }
-
     Vec3 trace(const Vec3 &C, const Vec3 &D, const Vec3 &Light) const
     {
         std::optional<Hit> closest;
+
+        /*#pragma omp parallel
+        {
+            std::optional<Hit> local_closest; // Jeder Thread hat seine eigene
+
+            #pragma omp for nowait
+            for (int i = 0; i < (int)objects.size(); ++i)
+            {
+                auto hit = objects[i].intersect(C, D);
+                if (hit && (!local_closest || hit->alpha < local_closest->alpha))
+                    local_closest = hit;
+            }
+
+            // Nur das Zusammenführen ist kritisch
+            #pragma omp critical
+            {
+                if (local_closest &&
+                    (!closest || local_closest->alpha < closest->alpha))
+                {
+                    closest = local_closest;
+                }
+            }
+        }*/
         for (const auto &obj : objects)
         {
             auto hit = obj.intersect(C, D);
@@ -161,7 +184,8 @@ void write_ppm(const std::string &fname, int width, int height,
 }
 
 // -------- Render --------
-void render(int width, int height, const std::string &stl_file,
+void render(int width, int height, const std::string &out_file,
+            const std::string &stl_file,
             const Vec3 &C, const Vec3 &cam_lookat, const Vec3 &cam_up,
             const Vec3 &light)
 {
@@ -183,8 +207,9 @@ void render(int width, int height, const std::string &stl_file,
         std::printf("STL file not found - rendering empty scene\n");
     }
 
-    std::vector<std::array<int, 3>> pixels;
-    pixels.reserve(static_cast<size_t>(width) * height);
+    std::vector<std::array<int, 3>> pixels(static_cast<size_t>(width) * height);
+#pragma omp parallel for schedule(dynamic) default(none) \
+    shared(width, height, fov, aspect, right, actual_up, forward, C, light, scene, pixels)
     for (int j = 0; j < height; ++j)
     {
         for (int i = 0; i < width; ++i)
@@ -196,22 +221,98 @@ void render(int width, int height, const std::string &stl_file,
             int r = std::max(0, std::min(255, static_cast<int>(255 * color.x)));
             int g = std::max(0, std::min(255, static_cast<int>(255 * color.y)));
             int b = std::max(0, std::min(255, static_cast<int>(255 * color.z)));
-            pixels.push_back({r, g, b});
+            pixels[static_cast<size_t>(j) * width + i] = {r, g, b};
         }
     }
 
-    write_ppm("output.ppm", width, height, pixels);
+    write_ppm(out_file, width, height, pixels);
 }
 
-int main()
+static void print_usage(const char *prog)
+{
+    std::fprintf(stderr,
+                 "Usage: %s [options]\n"
+                 "  --out <file>           output PPM file (default: output.ppm)\n"
+                 "  --stl <file>           input STL file (default: car.stl)\n"
+                 "  --cam <x> <y> <z>      camera position (default: 100 -100 50)\n"
+                 "  --light <x> <y> <z>    light source (default: 100 -100 50)\n"
+                 "  --width <n>            image width (default: 600)\n"
+                 "  --height <n>           image height (default: 600)\n"
+                 "  --help                 show this help and exit\n",
+                 prog);
+}
+
+int main(int argc, char **argv)
 {
     int width = 600;
     int height = 600;
+    std::string out_file = "output.ppm";
     std::string stl_file = "car.stl";
-    Vec3 cam_pos(20, -20, 10);
+    Vec3 cam_pos(100, -100, 50);
     Vec3 cam_lookat(0, 0, 3);
     Vec3 cam_up(0, 0, 1);
-    Vec3 light_source(20, -20, 5);
-    render(width, height, stl_file, cam_pos, cam_lookat, cam_up, light_source);
+    Vec3 light_source(100, -100, 50);
+
+    for (int i = 1; i < argc; ++i)
+    {
+        std::string arg = argv[i];
+        auto need = [&](int n) -> bool { return i + n < argc; };
+        try
+        {
+            if (arg == "--help" || arg == "-h" && need(0))
+            {
+                print_usage(argv[0]);
+                return 0;
+            }
+            else if (arg == "--out" || arg == "-o" && need(1))
+            {
+                out_file = argv[++i];
+            }
+            else if (arg == "--stl" || arg == "-s" && need(1))
+            {
+                stl_file = argv[++i];
+            }
+            else if (arg == "--cam" || arg == "-c" && need(3))
+            {
+                cam_pos = Vec3(std::stod(argv[i + 1]), std::stod(argv[i + 2]),
+                               std::stod(argv[i + 3]));
+                i += 3;
+            }
+            else if (arg == "--light" || arg == "-l" && need(3))
+            {
+                light_source = Vec3(std::stod(argv[i + 1]), std::stod(argv[i + 2]),
+                                    std::stod(argv[i + 3]));
+                i += 3;
+            }
+            else if (arg == "--width" || arg == "-w" && need(1))
+            {
+                width = std::stoi(argv[++i]);
+            }
+            else if (arg == "--height" || arg == "-h" && need(1))
+            {
+                height = std::stoi(argv[++i]);
+            }
+            else
+            {
+                std::fprintf(stderr, "Error: unknown or incomplete argument '%s'\n",
+                             arg.c_str());
+                print_usage(argv[0]);
+                return 1;
+            }
+        }
+        catch (const std::exception &)
+        {
+            std::fprintf(stderr, "Error: invalid value for '%s'\n", arg.c_str());
+            print_usage(argv[0]);
+            return 1;
+        }
+    }
+
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC, &start);
+    render(width, height, out_file, stl_file, cam_pos, cam_lookat, cam_up, light_source);
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    double time_spent = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+    printf("%f \n", time_spent);
     return 0;
 }
